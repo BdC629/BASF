@@ -1,0 +1,13 @@
+
+
+
+{{ wrapper_prefix }}
+{% if (title is not empty) %}
+<h3>{{ title }}{% endif %}</h3>
+{% endif %}
+{{ list_type_prefix }}
+{% for id,row in rows %}
+<li class="{{ classes_array[id] }}{% endfor %}">{{ row }}</li>
+{% endfor %}
+{{ list_type_suffix }}
+{{ wrapper_suffix }}

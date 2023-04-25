@@ -1,0 +1,24 @@
+
+
+
+<div id="node-{{ node.nid }}" class="{{ classes }} clearfix col-md-4 col-12 d-flex align-items-stretch mb-4 px-0"{{ attributes }}>
+
+  <div class="card z-depth-0 w-100 transparent rounded-0">
+    <div class="card-body">
+      {{ render(title_prefix) }}
+      {% if (not page) %}
+      <h3{{ title_attributes }}{% endif %} class="font-weight-bold">{{ title }}</h3>
+      {% endif %}
+      {{ render(title_suffix) }}
+
+      <div class="content card-text"{{ content_attributes }}>
+        {# We hide the comments and links now so that we can render them later. #}
+        hide(content['comments'])
+        hide(content['links'])
+        {{ render(content) }}
+
+      </div>
+
+    </div>
+  </div>
+</div>

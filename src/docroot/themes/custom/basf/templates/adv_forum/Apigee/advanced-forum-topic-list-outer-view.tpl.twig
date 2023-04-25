@@ -1,0 +1,109 @@
+
+
+
+<div class="container">
+  <div class="{{ classes }}">
+    {% if (admin_links is not empty) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="views-admin-links views-hide">
+          {{ admin_links }}{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if (header) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="view-header">
+          {{ header }}{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if (exposed) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="view-filters">
+          {{ exposed }}{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if (attachment_before) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="attachment attachment-before">
+          {{ attachment_before }}{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if (forum_tools is not empty) %}
+    {% endif %}
+
+    {% if (node_create_list) %}
+    <div class="d-flex mb-5">
+      {% if (user_is_logged_in()) %}
+      {{ node_create_list }}
+      {% else %}
+      {{ l('Login to post new content in the forum', 'user/login', [(
+      'html' : constant('TRUE'),
+      'attributes' : [(
+      'class' : [(
+      'btn',
+      'btn-primary'
+      )
+      ]
+      )] ) {% endif %} ]
+    </div>
+    {% endif %} ){% endif %}{% endif %} }}
+
+    {% if (rows) %}
+    <div class="view-content mb-5">
+      {{ rows }}{% endif %}
+    </div>
+    {% elseif (empty) %}
+    <div class="view-empty mb-5">
+      {{ empty }}{% endif %}
+    </div>
+    {% endif %}
+
+    {% if (pager) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="forum-pager clearfix" id="forum-pager-bottom">{{ pager }}{% endif %}
+        </div>
+      </div>
+    </div>
+    <hr>
+    {% endif %}
+
+    {% if (view.sort_form is not empty) %}
+    <div id="forum-sort" class="form-inline mb-5">
+      {{ advanced_forum_forum_topic_list_sort() }}{% endif %}
+    </div>
+    {% endif %}
+
+    {% if (attachment_after) %}
+    <div class="attachment attachment-after mb-5">
+      {{ attachment_after }}{% endif %}
+    </div>
+    {% endif %}
+
+    {% if (more) %}
+    {{ more }}{% endif %}
+    <hr>
+    {% endif %}
+
+    {% if (footer) %}
+    <div class="view-footer mb-5">
+      {{ footer }}{% endif %}
+    </div>
+    {% endif %}
+  </div> {# class view #}
+</div>

@@ -1,0 +1,49 @@
+
+
+<div class="panel panel-default">
+  <div class="panel-heading grey lighten-4">
+    <h3 class="mb-0">{{ t('Topics List') }}</h3>
+  </div>
+  {% if (title is not empty) %}
+  <div class="panel-body muted">
+    {{ title }}{% endif %}
+  </div>
+  {% endif %}
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="text-white basf-blue">
+      <tr>
+        {% for field,label in header %}
+        <th class="views-field views-field-{{ fields[field] }}{% endfor %}">
+          {{ label }}
+        </th>
+        {% endfor %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for count,row in rows %}
+      <tr class="{{ implode(' ', row_classes[count]) }}{% endfor %}">
+        {% if (shadow[count] is empty) %}
+        {% for field,content in row %}
+        <td class="views-field views-field-{{ fields[field] }}{% endfor %}{% endif %}">
+          {% if (field == 'title' and sticky[count] is not empty) %}
+          <span class="sticky-label">{{ t('Sticky:') }}{% endif %}</span>
+          {% endif %}
+          {{ content }}
+        </td>
+        {% endfor %}
+        {% else %}
+        <td class="views-field views-field-{{ fields['topic_icon'] }}{% endif %}">
+          {{ row['topic_icon'] }}
+        </td>
+        <td class="views-field views-field-{{ fields['title'] }}" colspan="{{ count(header)-1 }}">
+          {{ shadow[count] }}
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer"></div>
+</div>

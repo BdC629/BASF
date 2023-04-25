@@ -1,0 +1,22 @@
+
+
+
+
+<!--Footer-->
+<footer id="footer" class="page-footer basf-dark-grey">
+  <div class="container py-5 text-center text-md-left">
+    <div class="d-flex justify-content-between">
+      <div class="basf-footer-text pt-1">
+        <span><small>Copyright © BASF SE {{ date("Y") }}</small></span>
+      </div>
+      <small>
+        <ul class="nav justify-content-end ">
+          {% set footer_menu = menu_tree(variable_get('menu_main_links_source', 'menu-footer')) %}
+          print_r(drupal_render(footer_menu))
+
+        </ul>
+      </small>
+    </div>
+  </div>
+</footer>
+<!--/.Footer-->

@@ -1,0 +1,54 @@
+
+{#Render fields the right way @see https://drupalsun.com/stephen-tweeddale/2011/09/07/rendering-drupal-7-fields-right-way
+* and the safe way @see https://www.drupal.org/docs/security-in-drupal/sanitizing-output #}
+
+{% if (bean is not empty) %}
+{% set field_cta_1_link = field_get_items('bean', bean, 'field_cta_1_link') %}
+{% set field_cta_1_link_0 = field_cta_1_link is not empty ? field_cta_1_link[0] : constant('NULL') %}
+{% set field_cta_1_link_output = field_view_value( 'bean', bean, 'field_cta_1_link', field_cta_1_link_0) %}
+{% set field_cta_2_link = field_get_items('bean', bean, 'field_cta_2_link') %}
+{% set field_cta_2_link_0 = field_cta_2_link is not empty ? field_cta_2_link[0] : constant('NULL') %}
+{% set field_cta_2_link_output = field_view_value( 'bean', bean, 'field_cta_2_link', field_cta_2_link_0) %}
+{% set field_lead_text = field_get_items('bean', bean, 'field_lead_text') %}
+{% set field_lead_text_0 = field_lead_text is not empty ? field_lead_text[0] : constant('NULL') %}
+{% set field_lead_text_output = field_view_value( 'bean', bean, 'field_lead_text', field_lead_text_0) %}
+
+{# Set saleslines brand color #}
+{% set domain = _SERVER['HTTP_HOST'] %}
+{% if ( strpos(domain, 'ap') != constant('false')) %}
+{% set saleslineclasstext = 'basf-light-green-text' %}
+{% set saleslineclassbg = 'basf-light-green' %}
+{% set saleslineclassoutlinebtn = 'btn-outline-basf-lgiht-green' %}
+{% set saleslineclasslink = 'basf-light-green-link' %}
+{% else %}
+{% set saleslineclasstext = 'basf-light-blue-text' %}
+{% set saleslineclassbg = 'basf-light-blue' %}
+{% set saleslineclasslink = 'basf-light-blue-link' %}
+{% set saleslineclassoutlinebtn = 'btn-outline-basf-light-blue' %}
+{% endif %}
+{% endif %}
+{% set field_cta_1_link_output['#element']['attributes']['class'] = 'btn ' ~ saleslineclassbg ~ ' text-white ml-0 z-depth-0 mb-4 rounded-0' %}
+{% set field_cta_2_link_output['#element']['attributes']['class'] = 'btn ' ~ saleslineclassoutlinebtn ~ ' text-white ml-0 ml-md-2 z-depth-0 mb-4 rounded-0' %}
+
+<!--Jummbotron with buttons-->
+<div id="jumbotron-with-buttons" class="container py-5">
+  <div class="row justify-content-around">
+    <div class="col-12 col-md-10 col-lg-6">
+      <h2 class="font-weight h3-bold mb-3 text-center">{{ render(title) }}</h2>
+      {% if ( field_lead_text is not empty ) %}
+      <p class="lead text-center mb-5">
+        {{ render(field_lead_text_output) }}{% endif %}
+      </p>
+      {% endif %}
+      <div class="d-flex justify-content-center">
+        {% if ( field_cta_1_link is not empty ) %}
+        {{ render(field_cta_1_link_output) }}{% endif %}
+        {% endif %}
+        {% if ( field_cta_2_link is not empty ) %}
+        {{ render(field_cta_2_link_output) }}{% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<!--/.Jumbotron with buttons-->

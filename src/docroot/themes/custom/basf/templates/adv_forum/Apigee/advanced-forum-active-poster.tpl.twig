@@ -1,0 +1,35 @@
+
+
+
+
+<div class="active-poster">
+  <div class="active-poster-name">
+    {{ account_name }}
+  </div>
+
+  {# Avatar (has div in variable) #}
+  {% if (picture is not empty) %}
+    {{ picture }}{% endif %}
+  {% endif %}
+
+  {# Posts #}
+  <div class="active-poster-posts">
+    <span class="active-poster-label">{{ t('Posts') }}:</span> {{ posts }}
+  </div>
+
+  {# Posts #}
+  <div class="active-poster-topics">
+    <span class="active-poster-label">{{ t('Topics') }}:</span> {{ topics }}
+  </div>
+
+  <div class="last-post">
+    <div class="active-poster-label">{{ t('Last post') }}</div>
+    <div class="active-poster-title">
+      {{ last_post_title }}
+    </div>
+    <div class="active-poster-date">
+      <span class="active-poster-label">{{ t('On') }}:</span> {{ last_post_date }}
+    </div>
+
+  </div>
+</div>

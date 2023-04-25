@@ -1,0 +1,49 @@
+
+
+
+{% if (strpos(view.tag, 'smartdoc-method-listing-toc') != constant('false') and title is not empty) %}
+<div class="card border-0">
+  {{ wrapper_prefix }}{% endif %}
+   {% set sanitized_title = str_replace(' ', '-', strtolower(title)) %}
+ {% set sanitized_title = preg_replace('/[^A-Za-z0-9\-]/', '', sanitized_title) %}
+
+  <div class="card-header pl-2 pr-0" role="tab" id="heading-<?= $sanitized_title ">
+    <a class="basf-grey-text collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse-<?= $sanitized_title " aria-expanded="false" aria-label="accordion" aria-controls="collapse-<?= $sanitized_title ">
+        <span class="method-tag-header">
+          {{ title }}
+          <i class="fas fa-angle-down rotate-icon"></i>
+        </span>
+    </a>
+  </div>
+  <div id="collapse-<?= $sanitized_title " class="collapse" role="tabpanel" aria-labelledby="heading-<?= $sanitized_title " data-parent="#accordionEx">
+    <div class="card-body timeline-main">
+      <ul class="timeline-light pl-0">
+      {% for id,row in rows %}
+        <li class="timeline-light-item timeline-light-item-light {{ classes_array[id] }}{% endfor %}">
+          <div class="timeline-light-item-tail"></div>
+          <div class="timeline-light-item-head"></div>
+          {{ row }}
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {{ wrapper_suffix }}
+</div>
+{% else %}
+  {{ wrapper_prefix }}{% endif %}
+  {% if (title is not empty) %}
+    <h3>{{ title }}{% endif %}</h3>
+  {% endif %}
+  <div class="timeline-main">
+    <ul class="timeline-light pl-0">
+  {% for id,row in rows %}
+    <li class="timeline-light-item timeline-light-item-light  {{ classes_array[id] }}{% endfor %}">
+      <div class="timeline-light-item-tail"></div>
+      <div class="timeline-light-item-head"></div>
+      {{ row }}
+    </li>
+  {% endfor %}
+  </ul>
+  {{ wrapper_suffix }}
+{% endif %}

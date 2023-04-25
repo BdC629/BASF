@@ -1,0 +1,60 @@
+
+
+
+<!--Slides-->
+<div class="carousel-inner pb-5" role="listbox">
+  {% for row_number,columns in rows %}
+  {% if (row_number == 0) %}
+  {{ '<div class="carousel-item active align-items-stretch">' }}
+    {{ '<div class="d-flex">' }}
+      {{ '<div class="col-md-4 d-flex align-items-stretch">' }}
+        {{ rows[0] }}
+        {{ '</div>' }}
+      {{ '<div class="col-md-4 d-none d-md-flex align-items-stretch">' }}
+        {{ rows[1] }}
+        {{ '</div>' }}
+      {{ '<div class="col-md-4 d-none d-md-flex align-items-stretch">' }}
+        {{ rows[2] }}
+        {{ '</div>' }}
+      {{ '</div></div>' }}
+  {% elseif (row_number == 3) %}
+  {{ '<div class="carousel-item align-items-stretch">' }}
+    {{ '<div class="d-flex">' }}
+      {{ '<div class="col-md-4 d-flex align-items-stretch">' }}
+        {{ rows[3] }}
+        {{ '</div>' }}
+      {{ '<div class="col-md-4 d-none d-md-flex align-items-stretch">' }}
+        {{ rows[4] }}
+        {{ '</div>' }}
+      {{ '<div class="col-md-4 d-none d-md-flex align-items-stretch">' }}
+        {{ rows[5] }}
+        {{ '</div>' }}
+      {{ '</div></div>' }}
+  {% elseif (row_number == 6) %}
+  {{ '<div class="carousel-item align-items-stretch">' }}
+    {{ '<div class="d-flex">' }}
+      {{ '<div class="col-md-4 d-flex align-items-stretch">' }}
+        {{ rows[6] }}
+        {{ '</div>' }}
+      {{ '<div class="col-md-4 d-none d-md-flex align-items-stretch">' }}
+        {{ rows[7] }}
+        {{ '</div>' }}
+      {{ '<div class="col-md-4 d-none d-md-flex align-items-stretch">' }}
+        {{ rows[8] }}
+        {{ '</div>' }}
+      {{ '</div>' }}
+    {{ '</div></div>' }}
+{% else %}
+
+{% endif %}
+{% endfor %}
+</div>
+<!--Slides-->
+{% if (count(rows) > 3) %}
+<!--Controls-->
+<div class="controls-top">
+  <a class="btn-floating basf-blue" href="#multi-item-example" data-slide="prev" aria-label="prev"><i class="fa fa-chevron-left"></i></a>
+  <a class="btn-floating basf-blue" href="#multi-item-example" data-slide="next" aria-label="next"><i class="fa fa-chevron-right"></i></a>
+</div>
+<!--/.Controls-->
+{% endif %}

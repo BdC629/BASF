@@ -1,0 +1,53 @@
+style:
+  css:
+    theme:
+      scss/main.min.css: {}
+  js:
+    js/popper.min.js: {}
+    js/bootstrap.min.js: {}
+    js/mdb.min.js: {}
+    js/basf.min.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - apigee_kickstart/modernizr
+
+modernizr:
+  header: true
+  js:
+    assets/js/modernizr.js: {}
+
+font.roboto:
+  version: VERSION
+  license:
+    name: 'Apache License 2.0'
+    url: https://github.com/google/roboto/blob/master/LICENSE
+    gpl-compatible: true
+  css:
+    base:
+      https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700: { external: true }
+
+
+commerce.authnet:
+  js:
+    assets/js/basf.commerce.authnet.js: {}
+
+commerce.stripe:
+  js:
+    assets/js/basf.commerce.stripe.js: {}
+
+monetization:
+  css:
+    theme:
+      assets/css/basf.monetization.css: {}
+      assets/css/basf.apigeex.css: {}
+
+monetization.add-credit:
+  css:
+    theme:
+      assets/css/basf.monetization.add-credit.css: {}
+
+smartdocs:
+  css:
+    theme:
+      assets/css/basf.smartdocs.css: {}

@@ -1,0 +1,67 @@
+
+
+
+
+{{ pager }}
+
+<table id="forum-topic-{{ topic_id }}" class="forum-table forum-table-topics">
+  <thead>
+  <tr>{{ header }}</tr>
+  </thead>
+
+  <tbody>
+  {% for topic in topics %}
+  {% if (topic.sticky) %}
+  {# Extra label on sticky topics #}
+  {% set topic.title = t('Sticky') ~ ': ' ~ topic.title %}
+  {% endif %}
+
+
+  {# Add "new" or "updated" to title where appropriate. #}
+  {% set topic_new = "" %}{% endfor %}
+  {% if (topic.new) %}
+  {% if (topic.new_replies > 0) %}
+  {% set topic_new = ' <span class="marker">' ~ t('updated') ~ '</span>' %}
+  {% else %}
+  {% set topic_new = ' <span class="marker">' ~ t('new') ~ '</span>' %}
+  {% endif %}
+  {% endif %}
+
+
+  <tr class="{{ topic.zebra }} {{ topic.sticky_class }}">
+    <td class="forum-topic-icon"><div class="forum-icon">{{ topic.icon }}</div></td>
+
+    <td class="forum-topic-title">
+      {{ topic.title ~ topic_new }}
+      {% if (topic.pager is not empty) %}
+      <div class="forum-topic-pager"> {{ topic.pager }} </div>
+      {% endif %}
+    </td>
+
+    {% if (topic.moved) %}
+    <td colspan="3">
+      {{ topic.message }}{% endif %}{% endif %}
+    </td>
+    {% else %}
+    <td class="forum-replies">
+      <div class="forum-number-replies">{{ topic.num_comments }}{% endif %}</div>
+      {% if (topic.new_replies) %}
+      <div class="forum-number-new-replies"><a href="{{ topic.new_url }}{% endif %}">{{ topic.new_text }}</a></div>
+      {% endif %}
+    </td>
+
+    {% if (module_exists('statistics')) %}
+    <td class="forum-number-views">{{ topic.views }}{% endif %} </td>
+    {% endif %}
+
+    {% if (not variable_get('advanced_forum_hide_created', 0)) %}
+    <td class="forum-topic-created">{{ topic.created }}{% endif %}</td>
+    {% endif %}
+
+    <td class="forum-last-reply">{{ topic.last_reply }}</td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{{ pager }}

@@ -1,0 +1,75 @@
+<div id="user-edit-{{ user.uid }}" class="user-edit-form container my-5 pt-5">
+  <div class="user-edit-container" id="user-edit-container">
+    {{ render(form['form_id']) }}
+    {{ render(form['form_build_id']) }}
+    {{ render(form['form_token']) }}
+    <input type="input" id="ViewMode" class="currentedittab" name="ViewMode" value="" style="display: none;">
+
+    <div class="useredittabcontainer" id="useredittabcontainer">
+      <ul class="usereditlist nav nav-tabs">
+        <li class="useredittab accountinfo nav-item">
+          <a class="nav-link <?= (isset($_GET['pass-reset-token'])) ? '' : 'active'" id="accountinfo-tab" data-toggle="tab" href="#accountinfo" role="tab" aria-controls="accountinfo" aria-selected="true" aria-label="Account Information">Account Information</a>
+        </li>
+        {% if (array_key_exists('field_address', form) or array_key_exists('field_city', form) or array_key_exists('field_state', form) or array_key_exists('field_zip_code', form) or array_key_exists('field_phone_number', form) or array_key_exists('field_date_of_birth', form) or array_key_exists('field_gender', form)) %}
+          <li class="useredittab changeprofile nav-item">
+            <a class="nav-link" id="changeprofile-tab" data-toggle="tab" href="#changeprofile" role="tab" aria-controls="changeprofile" aria-selected="false" aria-label="Profile Information">Profile Information</a>
+          </li>
+        {% endif %}
+        <li class="useredittab changeadditionalprofile nav-item">
+          <a class="nav-link" id="changeadditionalprofile-tab" data-toggle="tab" href="#changeadditionalprofile" role="tab" aria-controls="changeadditionalprofile" aria-selected="false" aria-label="Additional Profile Information">Additional Profile Information</a>
+        </li>
+        <li class="useredittab changepassword nav-item">
+          <a class="nav-link <?= (isset($_GET['pass-reset-token'])) ? 'active' : ''" id="changepassword-tab" data-toggle="tab" href="#changepassword" role="tab" aria-controls="changepassword" aria-selected="false" aria-label="Change Password">Change Password</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="usereditborder tab-content" id="usereditborder">
+      <div class="tab-pane fade <?= (isset($_GET['pass-reset-token'])) ? '' : 'active show'" id="accountinfo" role="tabpanel" aria-labelledby="accountinfo-tab">
+        <div class="showalledit accountinfo toggleelement">{{ render(form['account']['name']) }}</div>
+        <div class="showalledit accountinfo toggleelement">{{ render(form['field_first_name']) }}</div>
+        <div class="showalledit accountinfo toggleelement">{{ render(form['field_middle_name']) }}</div>
+        <div class="showalledit accountinfo toggleelement">{{ render(form['field_last_name']) }}</div>
+        <div class="showalledit accountinfo toggleelement">{{ render(form['account']['mail']) }}</div>
+      </div>
+      {% if (array_key_exists('field_address', form) or array_key_exists('field_city', form) or array_key_exists('field_state', form) or array_key_exists('field_zip_code', form) or array_key_exists('field_phone_number', form) or array_key_exists('field_date_of_birth', form) or array_key_exists('field_gender', form)) %}
+        <div class="tab-pane fade" id="changeprofile" role="tabpanel" aria-labelledby="changeprofile-tab">
+          {% if (array_key_exists('field_address', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_address']) }}{% endif %}</div>
+          {% endif %} {% if (array_key_exists('field_city', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_city']) }}{% endif %}</div>
+          {% endif %} {% if (array_key_exists('field_state', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_state']) }}{% endif %}</div>
+          {% endif %} {% if (array_key_exists('field_zip_code', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_zip_code']) }}{% endif %}</div>
+          {% endif %} {% if (array_key_exists('field_phone_number', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_phone_number']) }}{% endif %}</div>
+          {% endif %} {% if (array_key_exists('field_date_of_birth', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_date_of_birth']) }}{% endif %}</div>
+          {% endif %} {% if (array_key_exists('field_gender', form)) %}
+            <div class="showalledit changeprofile toggleelement">{{ render(form['field_gender']) }}{% endif %}</div>
+          {% endif %}
+        </div>
+
+      <div class="tab-pane fade" id="changeadditionalprofile" role="tabpanel" aria-labelledby="changeadditionalprofile-tab">
+        <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['timezone']['timezone']) }}</div>
+        <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['signature_settings']['signature']) }}</div>
+        <div class="showalledit changeadditionalprofile toggleelement">
+          <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['picture']['picture_current']) }}</div>
+          <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['picture']['picture_upload']) }}</div>
+          <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['picture']['picture_delete']) }}</div>
+        </div>
+        <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['account']['status']) }}</div>
+        <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['account']['roles']) }}</div>
+        <div class="showalledit changeadditionalprofile toggleelement">{{ render(form['account']['notify']) }}</div>
+        <div class="showalledit accountinfo toggleelement">{{ render(form['field_terms_of_use']) }}</div>
+      </div>
+      <div class="tab-pane fade <?= (isset($_GET['pass-reset-token'])) ? 'active show' : ''" id="changepassword" role="tabpanel" aria-labelledby="changepassword-tab">
+        <div id="currpass" class="showalledit accountinfo changepassword toggleelement">{{ render(form['account']['current_pass']) }}</div>
+        <div class="showalledit changepassword toggleelement">{{ render(form['account']['pass']) }}</div>
+      </div>
+    </div>
+
+    {{ render(form['actions']) }}
+  </div><!--end user-edit container-->
+</div><!--end user-edit-->

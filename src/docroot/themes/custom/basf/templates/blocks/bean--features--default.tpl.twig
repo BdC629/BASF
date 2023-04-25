@@ -1,0 +1,76 @@
+
+
+<!--Features-->
+<div class="container {{ elements['field_css_classes'] is empty ? '' : elements['field_css_classes'][0]['#markup'] }}">
+  <div class="{{ classes }} clearfix basf-grey pt-4"{{ attributes }}>
+
+    {{ render(title_prefix) }}
+    {% if (bean.title is not empty) %}
+    <h2{{ title_attributes }}{% endif %} class="font-weight-bold container-fluid">{{ bean.title }}</h2>
+    {% endif %}
+    {{ render(title_suffix) }}
+
+    {% if (content['field_paragraph'] is not empty) %}
+    <div class="container-fluid mb-5">
+      {{ render(content['field_paragraph']) }}{% endif %}
+    </div>
+    {% endif %}
+
+    <div class="container"{{ content_attributes }}>
+      <div class="row justify-content-between">
+
+        {% if ( content['field_column_1_content'] && content['field_column_1_icon'] is not empty) %}
+        <div class="col-md-4 mb-4">
+          <div class="media">
+            <div class="d-flex mr-3">
+              {{ render(content['field_column_1_icon'] ) }}{% endif %}
+            </div>
+            <div class="media-body  align-self-center">
+              {{ render(content['field_column_1_content']) }}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-md-4 mb-4">
+          {{ render(content['field_column_1_content']) }}{% endif %}
+        </div>
+        {% endif %}
+
+        {% if ( content['field_column_2_content'] && content['field_column_2_icon'] is not empty) %}
+        <div class="col-md-4 mb-4">
+          <div class="media">
+            <div class="d-flex mr-3">
+              {{ render(content['field_column_2_icon'] ) }}{% endif %}
+            </div>
+            <div class="media-body align-self-center">
+              {{ render(content['field_column_2_content']) }}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-md-4 mb-4">
+          {{ render(content['field_column_2_content']) }}{% endif %}
+        </div>
+        {% endif %}
+
+        {% if ( content['field_column_3_content'] && content['field_column_3_icon'] is not empty) %}
+        <div class="col-md-4 mb-4">
+          <div class="media">
+            <div class="d-flex mr-3">
+              {{ render(content['field_column_3_icon'] ) }}{% endif %}
+            </div>
+            <div class="media-body  align-self-center">
+              {{ render(content['field_column_3_content']) }}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-md-4 mb-4">
+          {{ render(content['field_column_3_content']) }}{% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<!--/.Features-->

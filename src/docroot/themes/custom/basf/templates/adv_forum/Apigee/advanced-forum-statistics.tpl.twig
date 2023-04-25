@@ -1,0 +1,39 @@
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>{{ t("What's Going On?") }}</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tbody>
+      <tr>
+        <td><strong>{{ t('Currently active users:') }}</strong></td>
+        <td>{{ current_total }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ t("Online Users:") }}</strong></td>
+        <td>{{ online_users }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ t('Topics:') }}</strong></td>
+        <td>{{ topics }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ t('Posts:') }}</strong></td>
+        <td>{{ posts }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ t('Users:') }}</strong></td>
+        <td>{{ users }}</td>
+      </tr>
+      <tr>
+        <td><strong>{{ t('Latest Members:') }}</strong></td>
+        <td>{{ latest_users }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer"></div>
+</div>

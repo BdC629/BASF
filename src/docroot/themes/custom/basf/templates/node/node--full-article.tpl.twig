@@ -1,0 +1,14 @@
+
+
+
+<article id="node-{{ node.nid }}" class="{{ classes }} post-wrapper mb-5"{{ attributes }}>
+  <img src="{{ file_create_url(content['field_image_top'][0]['#item']['uri']) }} " class="img-fluid mb-3" alt="{{ content['field_image_top'][0]['#item']['alt'] }}">
+  {% if (display_submitted) %}
+  <p class="text-muted mb-3">{{ format_date(node.created, 'custom', 'd.m.Y') }}{% endif %}</p>
+  {% endif %}
+  {% if (title is not empty) %}
+  <h1 class="h1-responsive mb-4">{{ title }}{% endif %}</h1>
+  {% endif %}
+  {{ content['body'][0]['#markup'] }}
+  {{ render(content['about_the_author_avatar_article_footer']) }}
+</article>

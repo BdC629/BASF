@@ -1,0 +1,49 @@
+.form-radio[type=radio]:not(:checked)+label:after, .form-radio[type=radio]:not(:checked)+label:before, label.btn input[type=radio]:not(:checked)+label:after, label.btn input[type=radio]:not(:checked)+label:before {
+  border: 2px solid $basfdarkgrey;
+}
+
+.form-radio[type=radio]:checked+label:after, label.btn input[type=radio]:checked+label:after {
+  -webkit-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  transform: scale(1.02);
+}
+
+.form-radio[type=radio].with-gap:checked+label:after, .form-radio[type=radio]:checked+label:after, label.btn input[type=radio].with-gap:checked+label:after, label.btn input[type=radio]:checked+label:after {
+  background-color: $basflightblue;
+}
+
+.form-radio[type=radio].with-gap:checked+label:after, .form-radio[type=radio].with-gap:checked+label:before, .form-radio[type=radio]:checked+label:after, label.btn input[type=radio].with-gap:checked+label:after, label.btn input[type=radio].with-gap:checked+label:before, label.btn input[type=radio]:checked+label:after {
+  border: 2px solid $basflightblue;
+}
+
+/* Input fields */
+.form-control {
+  background-color: $basflightgrey;
+  &:focus {
+    background-color: $basflightgrey;
+  }
+}
+
+/* Selection */
+.custom-select {
+  background-color: $basflightgrey;
+  &:focus {
+    background-color: $basflightgrey;
+  }
+}
+
+.form-check-input[type=checkbox]:checked+label:before, label.btn input[type=checkbox]:checked+label:before {
+  border-right: 2px solid $basflightblue;
+  border-bottom: 2px solid $basflightblue;
+}
+
+.form-check-input[type=checkbox]+label:before, .form-check-input[type=checkbox]:not(.filled-in)+label:after, label.btn input[type=checkbox]+label:before, label.btn input[type=checkbox]:not(.filled-in)+label:after {
+  border: 2px solid $basfdarkgrey;
+}
+
+/* Apigee edge apps checkboxes*/
+.form-item[type=checkbox]+label, label.btn input[type=checkbox]+label {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+}

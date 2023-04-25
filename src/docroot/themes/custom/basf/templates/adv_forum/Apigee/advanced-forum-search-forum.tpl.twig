@@ -1,0 +1,12 @@
+
+
+<form action="{{ path }}" accept-charset="UTF-8" method="get" id="advanced-forum-search-forum">
+  <input type="hidden" name="forum" id="edit-forum" value="{{ forum }}"/>
+  <div class="container-inline">
+    <div class="form-item" id="edit-keys-wrapper">
+      <input type="text" maxlength="128" name="keys" id="edit-keys" value="" title="{{ t('Enter the terms you wish to search for.') }}" class="form-text" />
+    </div>
+    <input type="submit" id="edit-submit-forum-search" value="{{ t('Search forum') }}"  class="form-submit" />
+  </div>
+</form>
+

@@ -1,0 +1,26 @@
+
+
+<!--Notification panel-->
+<section class="{{ elements['field_css_classes'] is empty ? '' : elements['field_css_classes'][0]['#markup'] }}">
+  <div class="d-flex mb-5 flex-column">
+    <div class="card z-depth-0 rounded-0 basf-grey">
+      <div class="card-body">
+        {% if (title) %}
+        <h2 class="card-title">{{ render(title) }}{% endif %}</h2>
+        {% endif %}
+        {% if (field_description[0]['value']) %}
+        <p>{{ render(field_description[0]['value']) }}{% endif %}</p>
+        {% endif %}
+        {% if (elements['field_cta_1_link'][0]['#element']['url']) %}
+        <a class="btn ml-0" href="{{ render(elements['field_cta_1_link'][0]['#element']['url']) }}{% endif %}" aria-label="{{ render(elements['field_cta_1_link'][0]['#element']['title']) }}">
+          {{ render(elements['field_cta_1_link'][0]['#element']['title']) }}
+        </a>
+        {% endif %}
+        {% if (field_text_notification) %}
+        <p class="font-weight-bold">{{ render(field_text_notification[0]['value']) }}{% endif %}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<!--/.Notification panel-->

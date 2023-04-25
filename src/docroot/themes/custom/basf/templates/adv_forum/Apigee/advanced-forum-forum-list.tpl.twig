@@ -1,0 +1,155 @@
+
+
+
+{#
+The $tables variable holds the individual tables to be shown. A table is
+either created from a root level container or added as needed to hold root
+level forums. The following code will loop through each of the tables.
+In each table, it loops through the items in the table. These items may be
+subcontainers or forums. Subcontainers are printed simply with the name
+spanning the entire table. Forums are printed out in more detail. Subforums
+have already been attached to their parent forums in the preprocessing code
+and will display under their parents. #}
+
+
+{% for table_id,table in tables %}
+{% set table_info = table['table_info'] %}{% endfor %}
+
+<div class="container advanced-forum mb-5">
+  <div class="panel panel-default">
+    <div class="panel-heading grey lighten-4">
+      {% if (table_info.link is empty) %}
+      <h3 class="mb-0">{{ table_info.name }}{% endif %}</h3>
+      {% else %}
+      <a href="{{ table_info.link }}{% endif %}">{{ table_info.name }}</a>
+      {% endif %}
+    </div>
+    {% if (table_info.description is not empty) %}
+    <div class="panel-body">
+      {{ table_info.description }}
+    </div>
+    {% endif %}
+    <div id="forum-table-{{ table_info.tid }}">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="text-white basf-blue">
+          <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">{{ t('Forum') }}</th>
+            <th scope="col">{{ t('Topics') }}</th>
+            <th scope="col">{{ t('Posts') }}</th>
+            <th scope="col">{{ t('Last post') }}</th>
+          </tr>
+          </thead>
+          <tbody id="forum-table-{{ table_info.tid }}-content">
+          {% for item_id,item in table['items'] %}
+          {% if (item.is_container) %}
+          <tr id="subcontainer-{{ item_id }}{% endif %}{% endfor %}" class="forum-row {{ item.zebra }} container-{{ item_id }}-child">
+            {% else %}
+          <tr id="forum-{{ item_id }}{% endif %}" class="forum-row {{ item.zebra }} container-{{ item_id }}-child">
+            {% endif %}
+
+            {% if (item.forum_image is not empty) %}
+            {% if (strpos(item.forum_image, 'new') != constant('false')) %}
+            <td class="forum-image forum-image-{{ item_id }}">
+              <h3>
+                <div class="badge label-success">
+                  <span class="glyphicon glyphicon glyphicon-bookmark"></span>
+                </div>
+              </h3>
+            </td>
+            {% else %}
+            <td class="forum-image forum-image-{{ item_id }}">
+              <h3>
+                <div class="badge ">
+                  <span class="glyphicon glyphicon-bell"></span>
+                </div>
+              </h3>
+            </td>
+            {% else %}
+            {% if (strpos(item.icon_classes, 'new') != constant('false')) %}
+            <td class="{{ item.icon_classes }}">
+              <h3>
+                <div class="badge label-success">
+                  <i class="fas fa-bookmark"></i>
+                </div>
+              </h3>
+            </td>
+            {% else %}
+            <td class="{{ item.icon_classes }}">
+              <h3>
+                <div class="badge label-success">
+                  <i class="fas fa-bell"></i>
+                </div>
+              </h3>
+            </td>
+            {% endif %}
+            {% endif %}
+
+            {% set colspan = item.is_container ? 4 : 1 %}
+            <td class="forum-details" colspan="{{ colspan }}">
+              <div class="forum-name">
+                <a href="{{ item.link }}{% endif %}{% endif %}">{{ item.name }}</a>
+              </div>
+              {% if (item.description is not empty) %}
+              <div class="forum-description">
+                <hr>
+                {{ item.description }}{% endif %}
+              </div>
+              {% endif %}
+
+              {% if (item.subcontainers is not empty) %}
+              <div class="forum-subcontainers">
+                <hr>
+                <span class="badge grey lighten-4">Subcontainers</span> {{ item.subcontainers }}{% endif %}
+              </div>
+              {% endif %}
+
+              {% if (item.subforums is not empty) %}
+              <div>
+                <hr>
+                <span class="badge grey lighten-4">Subforums</span> {{ item.subforums }}{% endif %}
+              </div>
+              {% endif %}
+            </td>
+            {% if (not item.is_container) %}
+            <td class="forum-number-topics">
+              <div class="forum-number-topics">
+                      <span class="badge  basf-dark-grey text-white">
+                      {{ item.total_topics }}
+                      </span>
+                <br>
+                {% if (item.new_topics) %}
+                <span class="badge label-success">
+                          <a href="{{ item.new_topics_link }}{% endif %}{% endif %}">{{ item.new_topics_text }}</a>
+                        </span>
+                {% endif %}
+              </div>
+            </td>
+
+            <td class="forum-number-posts">
+                      <span class="badge  basf-dark-grey text-white">
+                        {{ item.total_posts }}
+                      </span>
+              <br>
+              {% if (item.new_posts) %}
+              <br />
+              <span class="badge  basf-light-blue text-white">
+                        <a href="{{ item.new_posts_link }}{% endif %}">{{ item.new_posts_text }}</a>
+                      </span>
+              {% endif %}
+            </td>
+            <td class="forum-last-reply">
+              {{ item.last_post }}
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel-footer"></div>
+  </div>
+</div>
+{% endfor %}

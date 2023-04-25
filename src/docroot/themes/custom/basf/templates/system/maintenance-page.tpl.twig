@@ -1,0 +1,71 @@
+
+
+<!DOCTYPE html>
+<html{{ html_attributes }}{{ rdf_namespaces }}>
+<head>
+  <link rel="profile" href="{{ grddl_profile }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ head }}
+  <title>{{ head_title }}</title>
+  {{ styles }}
+  <!-- HTML5 element support for IE6-8 -->
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  {{ scripts }}
+</head>
+<body{{ body_attributes }}>
+<div id="skip-link">
+  <a href="#main-content" class="element-invisible element-focusable">{{ t('Skip to main content') }}</a>
+</div>
+{{ page_top }}
+<header id="navbar" role="banner" class="{{ navbar_classes }} py-0">
+  <div class="{{ container_class }}">
+    <div class="basf-blue mr-md-5">
+      {% if (logo) %}
+      <a class="navbar-brand mr-0 p-0" href="{{ render(url(variable_get('site_frontpage', 'node'), {('absolute' : constant('TRUE')) }) ){% endif %}}}" title="{{ t('Home') }}" aria-label="{{ site_name }}">
+        <img src="{{ logo }}" width="160" height="80" alt="{{ t('Home') }}" />
+      </a>
+      {% endif %}
+
+      {% if (site_name is not empty) %}
+      <a class="name navbar-brand" href="{{ front_page }}{% endif %}" title="{{ t('Home') }}" aria-label="{{ site_name }}">{{ site_name }}</a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+<div class="main-container container mb-5 {{ container_class }}">
+  <div class="row">
+    <section class="col-sm-12">
+      <a id="main-content"></a>
+      {% if (title is not empty) %}
+      <h1 class="page-header">{{ title }}{% endif %}</h1>
+      {% endif %}
+      {% if (content is not empty) %}
+      {{ content }}{% endif %}
+      {% endif %}
+    </section>
+  </div>
+</div>
+{{ page_bottom }}
+<!--Footer-->
+<footer id="footer" class="page-footer basf-dark-grey">
+  <div class="container py-5 text-center text-md-left">
+    <div class="d-flex justify-content-between">
+      <div class="basf-footer-text pt-1">
+        <span><small>Copyright © BASF SE {{ date("Y") }}</small></span>
+      </div>
+      <small>
+        <ul class="nav justify-content-end ">
+          {% set footer_menu = menu_tree(variable_get('menu_main_links_source', 'menu-footer')) %}
+          print_r(drupal_render(footer_menu))
+
+        </ul>
+      </small>
+    </div>
+  </div>
+</footer>
+<!--/.Footer-->
+
+</body>
+</html>

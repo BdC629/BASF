@@ -1,0 +1,26 @@
+
+
+
+<div class="card decks mb-4">
+  <div class="view overlay">
+    <img class="card-img-top" src="{{ file_create_url(field_image_top[0]['uri']) }}" alt="{{ field_image_top[0]['alt'] }}" />
+    <a href="{{ node_url }}">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <span card="card-meta">{{ format_date(node.created, 'custom', 'd.m.Y') }}</span>
+    </div>
+    {% if (title is not empty) %}
+    <h4 class="card-title">{{ title }}{% endif %}</h4>
+    {% endif %}
+    <p class="card-text">{{ strip_tags(text_summary(content['body']['#items'][0]['value'], '...','120')) }}</p>
+    <a class="card-link" href="{{ node_url }}">
+                <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-1x"></i>
+                    <i class="fas fa-angle-right fa-stack-1x fa-inverse" style="color: #ffffff"></i>
+                </span>
+      Read more</a>
+  </div>
+</div>

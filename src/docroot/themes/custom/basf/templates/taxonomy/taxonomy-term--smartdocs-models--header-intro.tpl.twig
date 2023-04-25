@@ -1,0 +1,65 @@
+
+
+{% set term = taxonomy_term_load(tid) %}
+
+{% if ( term is not empty ) %}
+{% set term_description = strip_tags(t(term.description)) %}
+
+{# Field background image #}
+{% set background_image = field_get_items('taxonomy_term', term, 'field_background_image') %}
+{% if ( background_image is not empty ) %}
+{% set image_output = field_view_value( 'taxonomy_term', term, 'field_background_image', background_image[0]) %}
+{% set image_uri = file_create_url(image_output['#item']['uri']) %}
+{% endif %}
+
+{# Field display name #}
+{% set display_name = field_get_items('taxonomy_term', term, 'field_model_display_name') %}
+{% if ( display_name is not empty ) %}
+{% set name_output = field_view_value( 'taxonomy_term', term, 'field_model_display_name', display_name[0]) %}
+{% endif %}
+
+{# Field Smartdoc status #}
+{% set smartdoc_status = field_get_items('taxonomy_term', term, 'field_smartdoc_status') %}
+{% if ( smartdoc_status is not empty ) %}
+{% set status_output = field_view_value( 'taxonomy_term', term, 'field_smartdoc_status', smartdoc_status[0]) %}
+{% endif %}
+
+{# Field category #}
+{% set field_category = field_get_items('taxonomy_term', term, 'field_category') %}
+{% if ( field_category is not empty ) %}
+{% set category_output = field_view_value( 'taxonomy_term', term, 'field_category', field_category[0]) %}
+{% endif %}
+{% endif %}
+
+<!--Smartdocs method header-->
+<div id="smartdocs-api-header" class="mb-5">
+  <div class="view h-400"{{ image_uri is not empty ? ' style="background-image: url(' ~ image_uri ~ '); background-repeat: no-repeat; background-size: cover; background-position: center center;"' : '' }}>
+  <div class="mask d-flex align-items-end rgba-stylish-light">
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-lg-6">
+          {% if ( name_output is not empty ) %}
+          <h1 class="font-weight-bold mb-3 text-white">{{ render(name_output) }}{% endif %}</h1>
+          {% endif %}
+          {% if ( term_description is not empty ) %}
+          <p class="lead text-white mb-5">{{ render(term_description) }}{% endif %}</p>
+          {% endif %}
+          {{ category_output is not empty or status_output is not empty ? '<div class="d-flex">' : '' }}
+            {% if ( category_output is not empty ) %}
+            <div class="text-white ml-0 z-depth-0 mb-4 rounded-0 rgba-black-strong py-2 px-3">
+              {{ render(category_output) }}{% endif %}
+            </div>
+            {% endif %}
+            {% if ( status_output is not empty ) %}
+            <div class="text-white ml-0 ml-md-3 z-depth-0 mb-4 rounded-0 rgba-black-strong py-2 px-3">
+              {{ render(status_output) }}{% endif %}
+            </div>
+            {% endif %}
+            {{ category_output is not empty or status_output is not empty ? '</div>' : '' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--/.Smartdocs method header->

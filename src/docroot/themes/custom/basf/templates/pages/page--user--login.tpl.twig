@@ -1,0 +1,116 @@
+
+{{ render(page['header']) }}
+
+<!--Main Layout-->
+<main id="main-content" class="container py-5">
+
+  {% if (page['page_hero']) %}
+  <!--/.Page Hero-->
+  {{ render(page['page_hero']) }}{% endif %}
+  <!--/.Page Hero-->
+  {% endif %}
+
+  {% if (action_links) %}
+  <!--Action links-->
+  <ul class="action-links">{{ render(action_links) }}{% endif %}</ul>
+  <!--/.Action links-->
+  {% endif %}
+
+  {% if (messages) %}
+  <!--Messages-->
+  <div class="container">
+    <div class="mb-5">
+      {{ messages }}{% endif %}
+    </div>
+  </div>
+  <!--/.Messages-->
+  {% endif %}
+
+  {% if (page['sidebar_first']) %}
+  <div class="container">
+    <div class="row">
+      <!--Left sidebar-->
+      <div class="col-lg-3 col-md-4">
+        {{ render(page['sidebar_first']) }}{% endif %}
+      </div>
+      <!--/. Left sidebar-->
+      <!--Main content-->
+      <div class="col-lg-9 col-md-8">
+        {% if (breadcrumb) %}
+        <!--Breadcrumbs-->
+        {{ breadcrumb }}{% endif %}
+        <!--/.Breadcrumbs-->
+        {% endif %}
+
+        {% if (title_suffix) %}
+        <!--Title suffix-->
+        {{ render(title_suffix) }}{% endif %}
+        <!--/.Title suffix-->
+        {% endif %}
+
+        {{ render(page['content']) }}
+      </div>
+      <!--/.Main content-->
+    </div>
+  </div>
+  {% elseif (page['sidebar_second']) %}
+  <div class="container">
+    <div class="row">
+      <!--Main content-->
+      <div class="col-md-8">
+        {% if (breadcrumb) %}
+        <!--Breadcrumbs-->
+        {{ breadcrumb }}{% endif %}{% endif %}
+        <!--/.Breadcrumbs-->
+        {% endif %}
+
+        {% if (title_suffix) %}
+        <!--Title suffix-->
+        {{ render(title_suffix) }}{% endif %}
+        <!--/.Title suffix-->
+        {% endif %}
+
+        {{ render(page['content']) }}
+      </div>
+      <!--/.Right content-->
+      <div class="col-md-4">
+        {{ render(page['sidebar_second']) }}
+      </div>
+      <!--/.Right sidebar-->
+    </div>
+  </div>
+  {% else %}
+
+  {% if (breadcrumb) %}
+  <!--Breadcrumbs-->
+  {{ breadcrumb }}{% endif %}{% endif %}
+  <!--/.Breadcrumbs-->
+  {% endif %}
+
+  {% if (title_suffix) %}
+  <!--Title suffix-->
+  {{ render(title_suffix) }}{% endif %}
+  <!--/.Title suffix-->
+  {% endif %}
+
+  {{ render(page['content']) }}
+
+  {% endif %}
+
+  {% if (page['page_footer']) %}
+  <!--Page Footer-->
+  {{ render(page['page_footer']) }}{% endif %}
+  <!--/.Page Footer-->
+  {% endif %}
+
+  {% if (feed_icons) %}
+  <!--Feed-->
+  {{ feed_icons }}
+  <!--/.Feed-->
+  {% endif %}
+
+  <!--/.Content section-->
+</main>
+<!--/.Main Layout-->
+
+{{ render(page['footer']) }}{% endif %}

@@ -1,0 +1,44 @@
+/*
+ * BASF Developer Portal 1.1
+ * Author: Manuel Heck, Vollcom Digital GmbH, Thierschstraße 34, 80538 Munich
+ * Date: 19.12.2019
+*/
+
+// Import Fontawesome 5 Pro
+@import "fontawesome-5-pro/fontawesome";
+@import "fontawesome-5-pro/v4-shims";
+@import "fontawesome-5-pro/light";
+@import "fontawesome-5-pro/regular";
+@import "fontawesome-5-pro/solid";
+@import "fontawesome-5-pro/brands";
+
+// Import Bootstrap
+@import "bootstrap/bootstrap";
+
+// Import MDBootstrap Pro
+@import "mdb/mdb-pro";
+
+/* Free Addons */
+@import "mdb/addons/datatables";
+@import "mdb/addons/datatables-select";
+@import "mdb/addons/directives";
+@import "mdb/addons/hierarchical-display";
+@import "mdb/addons/flag";
+@import "mdb/addons/rating";
+
+/* Pro Addons */
+@import "mdb/addons-pro/cards-extended";
+@import "mdb/addons-pro/chat";
+@import "mdb/addons-pro/multi-range";
+@import "mdb/addons-pro/steppers";
+@import "mdb/addons-pro/timeline";
+
+// Import theme styles
+@import "basf-theme/variables";
+@import "basf-theme/components";
+@import "basf-theme/content";
+@import "basf-theme/fontface";
+@import "basf-theme/forms";
+@import "basf-theme/navigation";
+@import "basf-theme/apigee";
+@import "basf-theme/utilities";

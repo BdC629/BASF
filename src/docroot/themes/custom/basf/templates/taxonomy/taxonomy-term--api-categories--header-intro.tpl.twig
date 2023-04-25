@@ -1,0 +1,53 @@
+
+
+{% set term = taxonomy_term_load(tid) %}
+
+{% if ( term is not empty ) %}
+{% set term_description = strip_tags(t(term.description)) %}
+{% set term_title = strip_tags(t(term.name)) %}
+
+{# Field background image #}
+{% set background_image = field_get_items('taxonomy_term', term, 'field_background_image') %}
+{% if ( background_image is not empty ) %}
+{% set image_output = field_view_value( 'taxonomy_term', term, 'field_background_image', background_image[0]) %}
+{% set image_uri = file_create_url(image_output['#item']['uri']) %}
+{% endif %}
+
+{# Field category #}
+{% set field_category = field_get_items('taxonomy_term', term, 'field_category') %}
+{% if ( field_category is not empty ) %}
+{% set category_output = field_view_value( 'taxonomy_term', term, 'field_category', field_category[0]) %}
+{% endif %}
+{% endif %}
+
+<!--API categories header-->
+<div id="api-categories-header" class="{{ classes }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt-5 pb-5 mb-5 py-lg-5 order-2 order-lg-1">
+        {% if ( term_title is not empty ) %}
+        <h1 class="font-weight-bold mb-3 text-white">{{ render(term_title) }}{% endif %}</h1>
+        {% endif %}
+        {% if ( term_description is not empty ) %}
+        <p class="lead text-white mb-5">{{ render(term_description) }}{% endif %}</p>
+        {% endif %}
+        {{ category_output is not empty or status_output is not empty ? '<div class="d-flex">' : '' }}
+          {% if ( category_output is not empty ) %}
+          <div class="text-white ml-0 z-depth-0 mb-4 rounded-0 rgba-black-strong py-2 px-3">
+            {{ render(category_output) }}{% endif %}
+          </div>
+          {% endif %}
+          {% if ( status_output is not empty ) %}
+          <div class="text-white ml-0 ml-md-3 z-depth-0 mb-4 rounded-0 rgba-black-strong py-2 px-3">
+            {{ render(status_output) }}{% endif %}
+          </div>
+          {% endif %}
+          {{ category_output is not empty or status_output is not empty ? '</div>' : '' }}
+      </div>
+      {% if ( image_uri is not empty ) %}
+      <div class="col-lg-6 order-1 order-lg-2 px-0 view" style="background-image: url('{{ image_uri }}{% endif %}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"></div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!--/.API categories header-->

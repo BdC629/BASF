@@ -1,0 +1,93 @@
+
+
+{% set node = node_load(nid) %}
+
+{% if ( node is not empty ) %}
+{# Render body text #}
+{% set body = field_get_items('node', node, 'body') %}
+{% if ( body is not empty ) %}
+{% set body_text = body[0]['value'] %}
+{% endif %}
+
+{# Render field open_api_spec #}
+{% set open_api_spec = field_get_items('node', node, 'field_open_api_spec') %}
+{% if ( open_api_spec is not empty ) %}
+{% set open_spec_uri = file_create_url(open_api_spec[0]['uri']) %}
+{% set open_spec_filename = strip_tags(open_api_spec[0]['filename']) %}
+{% endif %}
+
+{# Render img #}
+{% set icon = field_get_items('node', node, 'field_image') %}
+{% if ( icon is not empty ) %}
+{% set icon_uri = file_create_url(icon[0]['uri']) %}
+{% set icon_alt = strip_tags(icon[0]['alt']) %}
+{% endif %}
+
+{# Set saleslines brand color #}
+{% set domain = _SERVER['HTTP_HOST'] %}
+{% if ( strpos(domain, 'ap') != constant('false')) %}
+{% set saleslineclasstext = 'basf-light-green-text' %}
+{% set saleslineclassbg = 'basf-light-green' %}
+{% set saleslineclasslink = 'basf-light-green-link' %}
+{% else %}
+{% set saleslineclasstext = 'basf-light-blue-text' %}
+{% set saleslineclassbg = 'basf-light-blue' %}
+{% set saleslineclasslink = 'basf-light-blue-link' %}
+{% endif %}
+{% endif %}
+
+
+<!--OpenAPI Specs Cards-->
+<div id="open-api-spec-{{ node.nid }}" class="col-md-6 col-12 d-flex align-items-stretch mb-5 {{ classes }}">
+  <!--Card-->
+  <div class="card z-depth-0 basf-grey w-100 rounded-0">
+    {% if (icon_uri is not empty) %}
+    <div class="card-body">
+      <div class="media">
+        <div class="d-flex mr-3">
+          <img src="{{ icon_uri }}{% endif %}" width="50" height="50" class="img-fluid" alt="{{ icon_alt }}"/>
+        </div>
+        <div class="media-body align-self-center">
+          {% if (title is not empty) %}
+          <h3 class="card-title mb-3 font-weight-bold">{{ title }}{% endif %}</h3>
+          {% endif %}
+          {% if (body_text is not empty) %}
+          {{ render(body_text) }}{% endif %}
+          {% endif %}
+          {% if (open_spec_uri is not empty) %}
+          <a href="{{ check_url(open_spec_uri) }}{% endif %}" class="{{ saleslineclasstext }} text-white pt-3 z-depth-0 rounded-0 waves-effect waves-light" aria-label="{{ open_spec_filename }}">
+            <i class="fas fa-arrow-circle-right"></i>&nbsp;
+            Visit
+            {% if (open_spec_filename is not empty) %}
+            {{ open_spec_filename }}{% endif %}
+            {% endif %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="card-body">
+      {% if (title is not empty) %}
+      <h3 class="card-title mb-3 font-weight-bold">{{ title }}{% endif %}{% endif %}</h3>
+      {% endif %}
+      {% if (body_text is not empty) %}
+      {{ render(body_text) }}{% endif %}
+      {% endif %}
+    </div>
+    {% if (open_spec_uri is not empty) %}
+    <div class="card-footer border-top-0 basf-grey">
+      <a href="{{ check_url(open_spec_uri) }}{% endif %}" class="{{ saleslineclasstext }} text-white pt-3 z-depth-0 rounded-0 waves-effect waves-light" aria-label="{{ open_spec_filename }}">
+        <i class="fas fa-arrow-circle-right"></i>&nbsp;
+        Visit
+        {% if (open_spec_filename is not empty) %}
+        {{ open_spec_filename }}{% endif %}
+        {% endif %}
+      </a>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+  <!--/.Card-->
+</div>
+<!--/.OpenAPI Specs Cards-->

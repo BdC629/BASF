@@ -1,0 +1,13 @@
+
+
+<div class="{{ classes }} clearfix container"{{ attributes }}>
+  {{ render(title_prefix) }}
+  {% if (bean.title is not empty) %}
+  <h2{{ title_attributes }}{% endif %}>{{ bean.title }}</h2>
+  {% endif %}
+  {{ render(title_suffix) }}
+  <div class="content"{{ content_attributes }}>
+    {{ render(content) }}
+
+  </div>
+</div>

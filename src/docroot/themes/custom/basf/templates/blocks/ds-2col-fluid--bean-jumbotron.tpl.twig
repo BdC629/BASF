@@ -1,0 +1,116 @@
+
+{#Render fields the right way @see https://drupalsun.com/stephen-tweeddale/2011/09/07/rendering-drupal-7-fields-right-way
+* and the safe way @see https://www.drupal.org/docs/security-in-drupal/sanitizing-output #}
+
+{% if (bean is not empty) %}
+{% set field_background_image_or_video = field_get_items('bean', bean, 'field_background_image_or_video') %}
+{% set field_background_image_or_video_0 = field_background_image_or_video is not empty ? field_background_image_or_video[0] : constant('NULL') %}
+{% set field_image_or_video_output = field_view_value('bean', bean, 'field_background_image_or_video', field_background_image_or_video_0) %}
+{% if (field_image_or_video_output is not empty) %}
+{% set field_background_image_or_video_output_uri = check_url(file_create_url(field_image_or_video_output['#file'].uri)) %}
+{% endif %}
+{% set background_is_image = constant('true') %}
+{% if (field_image_or_video_output['#file'].filemime == "video/mp4") %}
+{% set background_is_image = constant('false') %}
+{% endif %}
+{% set field_cta_1_link = field_get_items('bean', bean, 'field_cta_1_link') %}
+{% set field_cta_1_link_0 = field_cta_1_link is not empty ? field_cta_1_link[0] : constant('NULL') %}
+{% set field_cta_1_link_output = field_view_value('bean', bean, 'field_cta_1_link', field_cta_1_link_0) %}
+{% set field_cta_2_link = field_get_items('bean', bean, 'field_cta_2_link') %}
+{% set field_cta_2_link_0 = field_cta_2_link is not empty ? field_cta_2_link[0] : constant('NULL') %}
+{% set field_cta_2_link_output = field_view_value('bean', bean, 'field_cta_2_link', field_cta_2_link_0) %}
+{% set field_lead_text = field_get_items('bean', bean, 'field_lead_text') %}
+{% set field_lead_text_0 = field_lead_text is not empty ? field_lead_text[0] : constant('NULL') %}
+{% set field_lead_text_output = field_view_value('bean', bean, 'field_lead_text', field_lead_text_0) %}
+{% set bean_field_classes = field_get_items('bean', bean, 'field_css_classes') %}
+{% set bean_field_classes_0 = bean_field_classes is not empty ? bean_field_classes[0] : constant('NULL') %}
+{% set bean_field_classes_output = field_view_value('bean', bean, 'field_css_classes', bean_field_classes_0) %}
+
+{# Set saleslines brand color #}
+{% set domain = _SERVER['HTTP_HOST'] %}
+{% if (strpos(domain, 'ap') != constant('false')) %}
+{% set saleslineclasstext = 'basf-light-green-text' %}
+{% set saleslineclassbg = 'basf-light-green' %}
+{% set saleslineclasslink = 'basf-light-green-link' %}
+{% else %}
+{% set saleslineclasstext = 'basf-light-blue-text' %}
+{% set saleslineclassbg = 'basf-light-blue' %}
+{% set saleslineclasslink = 'basf-light-blue-link' %}
+{% endif %}
+
+{% endif %}
+{% set field_cta_1_link_output['#element']['attributes']['class'] = 'btn ' ~ saleslineclassbg ~ ' text-white ml-0 z-depth-0 mb-4 rounded-0' %}
+{% set field_cta_2_link_output['#element']['attributes']['class'] = 'btn ' ~ saleslineclassbg ~ ' text-white ml-0 ml-md-2 z-depth-0 mb-4 rounded-0' %}
+
+<!--Jummbotron-->
+{% if (render(bean_field_classes_output) == strval('mb-5')) %}
+<div id="jumbotron" {% if (bean_field_classes_output is not empty) %} class="{{ render(bean_field_classes_output) }}{% endif %}{% endif %}" {% endif %}>
+  {% if (background_is_image) %}
+  <div class="view h-600"{{ field_background_image_or_video_output_uri is not empty ? ' style="background-image: url(' ~ field_background_image_or_video_output_uri ~ '); background-repeat: no-repeat; background-size: cover; background-position: center center; width: 100%"' : '' }}{% else %}
+  <div class="view" style="height: 450px;">
+
+    <video class="video-fluid" autoplay loop muted width="100%">
+      <source src="{{ field_background_image_or_video_output_uri }}" type="video/mp4" />
+    </video>
+
+    {% endif %}
+    <div class="mask d-flex align-items-center rgba-stylish-light">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1 class="font-weight-bold mb-3 text-white">{{ render(title) }}{% endif %}</h1>
+            {% if ( field_lead_text is not empty ) %}
+            <p class="lead text-white mb-5">
+              {{ render(field_lead_text_output) }}{% endif %}
+            </p>
+            {% endif %}
+            {% if ( field_cta_1_link is not empty ) %}
+            {{ render(field_cta_1_link_output) }}{% endif %}
+            {% endif %}
+            {% if ( field_cta_2_link is not empty ) %}
+            {{ render(field_cta_2_link_output) }}{% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/.Jumbotron-->
+{% elseif (render(bean_field_classes_output) == strval('mb-5 basf-green')) %}
+<div id="jumbotron" {% if (bean_field_classes_output is not empty) %} class="{{ render(bean_field_classes_output) }}{% endif %}{% endif %}" {% endif %}>
+  <div class="container">
+    <div class="row">
+      {% if (left) %}
+      <div class="col-lg-6 pt-5 mt-5 mt-lg-0 mb-5 py-lg-5">
+        <h1 class="font-weight-bold mb-3 text-white">{{ render(title) }}{% endif %}</h1>
+        {% if (field_lead_text is not empty) %}
+        <p class="lead text-white mb-5">
+          {{ render(field_lead_text_output) }}{% endif %}
+        </p>
+        {% endif %}
+        {% if (field_cta_1_link is not empty) %}
+        {{ render(field_cta_1_link_output) }}{% endif %}
+        {% endif %}
+        {% if (field_cta_2_link is not empty) %}
+        {{ render(field_cta_2_link_output) }}{% endif %}
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if (right) %}
+      <div class="col-lg-6 px-0 d-flex align-items-center">
+        {% if (background_is_image) %}
+        <img class="img-fluid" src="{{ field_background_image_or_video_output_uri }}{% endif %}{% endif %}"
+             alt=""/>
+        {% else %}
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item"
+                  src="{{ field_background_image_or_video_output_uri }}{% endif %}"></iframe>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}

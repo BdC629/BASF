@@ -1,0 +1,8 @@
+{#advanced-forum.naked.post-edited.tpl.php #}
+
+
+<span class="post-edit-label">{{ t('Edited by') }}:</span> {{ edited_name }}
+<span class="post-edit-label"> {{ t('on') }} </span> {{ edited_datetime }}
+{% if (edited_reason is not empty) %}
+<span class="post-edit-label"> {{ t('Reason') }}{% endif %}:</span> {{ edited_reason }}
+{% endif %}

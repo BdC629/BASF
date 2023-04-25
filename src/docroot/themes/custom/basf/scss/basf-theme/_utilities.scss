@@ -1,0 +1,263 @@
+@charset "UTF-8";
+// 1. Global
+// 2. Headings
+// 3. Text utilities
+// 4. Colors
+// 5. Sizing
+// 6. Hover effects
+
+/* Global */
+@mixin fonts {
+  @include fontFace('HelveticaNeueLT-Black','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Black');
+  @include fontFace('HelveticaNeueLT-BlackItalic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-BlackItalic');
+  @include fontFace('HelveticaNeueLT-Bold','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Bold');
+  @include fontFace('HelveticaNeueLT-BoldItalic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-BoldItalic');
+  @include fontFace('HelveticaNeueLT-Heavy','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Heavy');
+  @include fontFace('HelveticaNeueLT-HeavyItalic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-HeavyItalic');
+  @include fontFace('HelveticaNeueLT-Italic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Italic');
+  @include fontFace('HelveticaNeueLT-Light','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Light');
+  @include fontFace('HelveticaNeueLT-LightItalic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-LightItalic');
+  @include fontFace('HelveticaNeueLT-Medium','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Medium');
+  @include fontFace('HelveticaNeueLT-MediumItalic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-MediumItalic');
+  @include fontFace('HelveticaNeueLT-Roman','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Roman');
+  @include fontFace('HelveticaNeueLT-Thin','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-Thin');
+  @include fontFace('HelveticaNeueLT-ThinItalic','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-ThinItalic');
+  @include fontFace('HelveticaNeueLT-UltraLight','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-UltraLight');
+  @include fontFace('HelveticaNeueLT-UltraLightItal','assets/fonts/HelveticaNeueLT/HelveticaNeueLT-UltraLightItal');
+}
+
+body, p, blockquote, pre {
+  font-family: "HelveticaNeueLT-Roman", Helvetica, Arial, sans-serif !important;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: $basfblack;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "HelveticaNeueLT-Light", Helvetica, Arial, sans-serif !important;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: $basfblack;
+}
+
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 50px;
+    line-height: 60px;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+}
+
+body {
+  margin-top: 0 !important;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Colors */
+.basf-orange {
+  background-color: $basforange !important;
+}
+
+.basf-red {
+  background-color: $basfred !important;
+}
+
+.basf-light-green {
+  background-color: $basflightgreen !important;
+}
+
+.basf-green {
+  background-color: $basfdarkgreen !important;
+}
+
+.basf-green-text {
+  color: $basfdarkgreen !important;
+}
+
+.basf-light-blue {
+  background-color: $basflightblue !important;
+}
+
+.basf-blue {
+  background-color: $basfdarkblue !important;
+}
+
+.basf-grey {
+  background-color: $basflightgrey !important;
+}
+
+.basf-dark-grey {
+  background-color: $basfdarkgrey !important;
+}
+
+.basf-light-yellow {
+  background-color: $basfyellow !important;
+}
+
+.rgba-basf-blue {
+  background-color: $basfdarkblue !important;
+}
+
+.basf-orange-text {
+  color: $basforange !important
+}
+
+.basf-red-text {
+  color: $basfred !important;
+}
+
+.basf-green-text {
+  color: #00793a;
+}
+
+.basf-ap-black-text, .basf-ap-black-text a {
+  color: $basfapblack !important;
+}
+
+.basf-light-green-text, .basf-light-green-text a {
+  color: $basflightgreen !important;
+}
+
+.basf-light-blue-text span.nav-link.dropdown-toggle {
+  color: $basflightblue;
+}
+
+.basf-light-blue-text {
+  color: $basflightblue;
+}
+
+.black-text {
+  color: $basfblack;
+}
+
+.basf-blue-text {
+  color: $basfdarkblue !important;
+}
+
+.basf-grey-hover:hover {
+  color: $basflightgrey;
+  transition: .4s;
+  -webkit-transition: .4s;
+}
+
+.basf-grey-text {
+  color: $basfdarkgrey
+}
+
+.basf-footer-text {
+  color: #adadad !important;
+}
+
+.basf-rgba-black {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.transparent {
+  background-color: transparent !important;
+}
+
+/* Border color */
+.border-darkgrey {
+  border-color: #adadad !important;
+}
+
+/* Links */
+a {
+  color: $basflightblue;
+}
+
+/* View */
+.h-400 {
+  height: 350px;
+}
+
+.h-600 {
+  height: 600px;
+}
+
+.h-450 {
+  height: 300px;
+}
+.min-h100 {
+  min-height: 100%;
+}
+.cover {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .h-600 {
+    height: 450px;
+  }
+  .h-450 {
+    height: 450px;
+  }
+}
+
+@media (min-width: 992px)  {
+  .h-400 {
+    height: 400px;
+  }
+}
+
+/* Text */
+b, strong {
+  font-weight: 900;
+}
+
+.word-break {
+  word-break: break-word;
+}
+
+/* List */
+ul {
+  list-style: disc;
+
+  li {
+    padding-top: .5rem;
+    padding-bottom: 0 !important;
+
+    &:before {
+      display: none;
+    }
+
+  }
+}
+
+ol {
+  list-style: none;
+  counter-reset: item;
+  padding-left: 0;
+
+  ul {
+    margin-left: .5rem;
+  }
+
+  li {
+    counter-increment: my-awesome-counter;
+    padding-bottom: .5rem;
+
+    &:before {
+      content: counters(item, ".") " ";
+      counter-increment: item;
+      color: #ffffff;
+      background-color: $basfdarkgrey;
+      padding: .25rem .25rem .25rem .4rem;
+      font-size: 75%;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      margin-right: .5rem;
+    }
+  }
+}

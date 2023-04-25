@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html{{ html_attributes }}{{ rdf_namespaces }}>
+<head>
+  <meta charset="UTF-8">
+  <link rel="profile" href="{{ grddl_profile }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {{ head }}
+  <title>{{ t(head_title) }}</title>
+  {{ styles }}
+  <!-- HTML5 element support for IE6-8 -->
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-echoshiv.min.js"></script>
+  <![endif]-->
+  {{ scripts }}
+</head>
+<body class="{{ classes }}">
+<div id="skip-link">
+  <a href="#main-content" class="element-invisible element-focusable" aria-label="Main content">{{ t('Skip to main content') }}</a>
+</div>
+
+{{ page_top }}
+
+{{ page }}
+
+{{ page_bottom }}
+</body>
+</html>

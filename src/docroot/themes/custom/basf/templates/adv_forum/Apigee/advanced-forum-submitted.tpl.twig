@@ -1,0 +1,37 @@
+
+
+
+
+{% if (time) %}
+{% if (topic_link is not empty) %}
+{% if (date_posted is defined) %}
+{{ t(
+'!title<br />by !author<br />@date_posted', [(
+'!title' : topic_link,
+'@date_posted' : date_posted,
+'!author' : author,
+)] ){% endif %}{% endif %}{% endif %} }}
+{% else %}
+{{ t(
+'!title<br />by !author<br />@time ago', [(
+'!title' : topic_link,
+'@time' : time,
+'!author' : author,
+)] ){% endif %} }}
+{% else %}
+{% if (date_posted is defined) %}
+{{ t(
+'by !author<br />@date_posted', [(
+'@date_posted' : date_posted,
+'!author' : author,
+)] ){% endif %}{% endif %} }}
+{% else %}
+{{ t(
+'by !author<br />@time ago', [(
+'@time' : time,
+'!author' : author,
+)] ){% endif %} }}
+{% endif %}
+{% else %}
+{{ t('n/a') }}{% endif %}
+{% endif %}

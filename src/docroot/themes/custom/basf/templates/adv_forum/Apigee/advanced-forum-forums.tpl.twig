@@ -1,0 +1,29 @@
+
+
+
+
+{% if (forums_defined) %}
+<div id="forum">
+  {% if (forum_tools is not empty) %}
+  {% endif %}
+  <div id="forum-forum" class="row">
+    <div class="col-md-12">
+      {{ forums }}{% endif %}
+    </div>
+  </div>
+  {% if (topics is not empty) %}
+  <div id="forum-topics" class="row">
+    <div class="col-md-12">
+      {{ topics }}
+    </div>
+  </div>
+  {% endif %}
+  {% if (topics is not empty) %}
+  {% endif %}
+  {% if (forum_statistics is not empty) %}
+  <div class="container mb-5">
+    {{ forum_statistics }}{% endif %}{% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endif %}

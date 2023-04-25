@@ -1,0 +1,35 @@
+
+
+
+<div id="node-{{ node.nid }}" class="{{ classes }} clearfix container"{{ attributes }}>
+  {% if ((page and title is not empty) or title_prefix is not empty or title_suffix is not empty or display_submitted) %}
+  {{ render(title_prefix) }}
+  {% if (page and title is not empty) %}
+  <h2{{ title_attributes }}><a href="{{ node_url }}" aria-label="{{ title }}">{{ title }}</a></h2>
+  {% endif %}
+  {{ render(title_suffix) }}
+  {% if (display_submitted) %}
+  <span class="submitted">
+    {{ user_picture }}{% endif %}
+    {{ submitted }}
+  </span>
+  {% endif %}
+  {% endif %}
+  {# Hide comments, tags, and links now so that we can render them later. #}
+  hide(content['comments'])
+  hide(content['links'])
+  hide(content['field_tags'])
+  {{ render(content) }}
+
+  {# Only display the wrapper div if there are tags or links. #}
+  {% set field_tags = render(content['field_tags']) %}
+  {% set links = render(content['links']) %}
+  {% if (field_tags or links) %}
+
+  <footer>
+    {{ field_tags }}{% endif %}
+    {{ links }}
+  </footer>
+  {% endif %}
+  {{ render(content['comments']) }}
+</div>

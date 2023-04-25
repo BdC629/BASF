@@ -1,0 +1,61 @@
+
+
+
+{% if (header) %}
+{% endif %}
+
+{% if (exposed) %}
+<div class="container" style="margin-top: -6rem;">
+  <div class="row justify-content-center">
+    <div class="col-md-10 bg-white px-4 px-md-5 pt-4">
+      <div class="view-filters mb-5">
+        {{ exposed }}{% endif %}{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if (attachment_before) %}
+<div class="attachment attachment-before">
+  {{ attachment_before }}{% endif %}
+</div>
+{% endif %}
+
+{% if (rows) %}
+<div id="api-categories-deck" class="">
+  {{ rows }}{% endif %}
+</div>
+
+{% elseif (empty) %}
+<div class="view-empty">
+  {{ empty }}{% endif %}
+</div>
+{% endif %}
+
+{% if (pager) %}
+{{ pager }}{% endif %}
+{% endif %}
+
+{% if (attachment_after) %}
+<div class="attachment attachment-after">
+  {{ attachment_after }}{% endif %}
+</div>
+{% endif %}
+
+{% if (more) %}
+{{ more }}{% endif %}
+{% endif %}
+
+{% if (footer) %}
+<div class="view-footer">
+  {{ footer }}{% endif %}
+</div>
+{% endif %}
+
+{% if (feed_icon) %}
+<div class="feed-icon">
+  {{ feed_icon }}{% endif %}
+</div>
+{% endif %}
+{# class view #}

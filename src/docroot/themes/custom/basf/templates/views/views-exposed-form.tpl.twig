@@ -1,0 +1,61 @@
+
+
+
+{% if (q is not empty) %}
+{# This ensures that, if clean URLs are off, the 'q' is added first so that
+it shows up first in the URL. #}
+{{ q }}{% endif %}
+
+{% endif %}
+<div class="views-exposed-form">
+  <div class="views-exposed-widgets clearfix d-flex flex-nowrap">
+    {% for id,widget in widgets %}
+    <div id="{{ widget.id }}{% endfor %}-wrapper" class="views-exposed-widget views-widget-{{ id }} w-75">
+      {% if (widget.label is not empty) %}
+      <label for="{{ widget.id }}{% endif %}">
+        {{ widget.label }}
+      </label>
+      {% endif %}
+      {% if (widget.operator is not empty) %}
+      <div class="views-operator">
+        {{ widget.operator }}{% endif %}
+      </div>
+      {% endif %}
+      <div class="views-widget">
+        {{ widget.widget }}
+      </div>
+      {% if (widget.description is not empty) %}
+      <div class="description">
+        {{ widget.description }}{% endif %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% if (sort_by is not empty) %}
+    <div class="views-exposed-widget views-widget-sort-by">
+      {{ sort_by }}{% endif %}
+    </div>
+    <div class="views-exposed-widget views-widget-sort-order">
+      {{ sort_order }}
+    </div>
+    {% endif %}
+    {% if (items_per_page is not empty) %}
+    <div class="views-exposed-widget views-widget-per-page">
+      {{ items_per_page }}{% endif %}
+    </div>
+    {% endif %}
+    {% if (offset is not empty) %}
+    <div class="views-exposed-widget views-widget-offset">
+      {{ offset }}{% endif %}
+    </div>
+    {% endif %}
+    <div class="views-exposed-widget views-submit-button pr-3">
+      {{ button }}
+    </div>
+    {% if (reset_button is not empty) %}
+    <div class="views-exposed-widget views-reset-button">
+      {{ reset_button }}{% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>

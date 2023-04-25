@@ -1,0 +1,11 @@
+
+
+
+{% if (title is not empty) %}
+<h3 class="container">{{ t(title) }}{% endif %}</h3>
+{% endif %}
+{% for id,row in rows %}
+<div{% if (classes_array[id]) %} class="{{ classes_array[id] }}{% endif %}{% endfor %}"{% endif %}>
+{{ row }}
+</div>
+{% endfor %}

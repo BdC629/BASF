@@ -1,0 +1,383 @@
+
+
+{% set i = 0 %}
+{# BASF-515 #}
+drupal_add_js(path_to_theme() ~ '/js/addons/datatables.min.js')
+
+{% if (not developer_status) %}
+<div class="container">
+  <div class="alert alert-warning mb-5" role="alert">
+    {{ t('Your developer status is marked as inactive. Even though the credentials below may appear active, you will not be able to use them until an administrator has activated your account.') }}{% endif %}
+  </div>
+</div>
+{% endif %}
+
+<div class="container">
+  <h2>
+    {{ t('These are your @apps!', {('@apps' : plural_downcase) }
+    {{ t('Explore them!') }} )
+  </h2>
+</div>
+
+{% if (add_app) %} }}
+<div class="container">
+  <div class="add-app-button my-5">
+    {{ add_app }}{% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% if (application_count) %}
+<div class="container">
+  <div class="row" id="my-apps-accordion">
+    {# more than one application #}
+    {% set is_ap_department = is_ap_department_domain() %}{% endif %}
+
+    {% for app in applications %}
+    {% if (is_ap_department) %}
+    {% if (app['entity'].attributes['domain'] is not defined or app['entity'].attributes['domain'] != "ap") %}
+
+    {% else %}
+    {% if (app['entity'].attributes['domain'] is defined and app['entity'].attributes['domain'] == "ap") %}
+
+    {% endif %}
+    {% endif %}
+    {% set status = basf_app_status(app) %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
+    <div class="col-md-6 mb-4">
+      <div class="card z-depth-0 border-0 rounded-0 basf-grey">
+        <div class="card-header border-0 bg-transparent pt-3" role="tab"
+             id="my-apps-collapse-header-{{ i }}">
+          <a data-toggle="collapse" data-parent="#my-apps-accordion" aria-label="open app" href="#my-apps-collapse-{{ i }}"
+             aria-expanded="false" aria-controls="my-apps-collapse{{ i }}">
+
+            <div class="d-flex">
+              <h5 class="mb-0 font-weight-bold pr-3">
+                {{ check_plain(app['app_name']) }}
+              </h5>
+
+              {% if (app['new_status']) %}
+              <span class="badge basf-orange white-text z-depth-0">
+                        {{ t('new') }}{% endif %}
+                      </span>
+              {% endif %}
+
+              {% set expiry = app['credential']['expires'] %}
+              {% set hasExpiration = app['credential']['expires'] is defined and expiry != -1 %}
+              {% set isExpired = hasExpiration and time() > expiry %}
+
+              {% if (isExpired) %}
+              <span class="pr-3">
+                      {{ t('Expired') }}
+                        </span>
+              {% endif %}
+
+              {% if (app['entity'].overallStatus == 'revoked') %}
+              <span class="ml-md-auto pr-3 basf-red-text">{{ t('Revoked') }}{% endif %}{% endif %}</span>
+              {% elseif (app['entity'].overallStatus == 'pending') %}
+              <span class="ml-md-auto pr-3 basf-orange-text">{{ t('Pending') }}{% endif %}</span>
+              {% else %}
+              <span class="ml-md-auto pr-3 basf-light-green-text">{{ t('Approved') }}{% endif %}</span>
+              {% endif %}
+
+              <i class="fas fa-angle-down rotate-icon pt-1 black-text"></i>
+
+            </div>
+          </a>
+          <hr>
+        </div>
+        <div id="my-apps-collapse-{{ i }}" class="my-apps-panels collapse" role="tabpanel"
+             aria-labelledby="my-apps-collapse-header-{{ i }}" data-parent="#my-apps-accordion">
+          <div class="p-0 card-body">
+            <ul id="my-apps-user-menu-{{ i }}" class="nav pb-3">
+              {% if (user_access("edit developer apps")) %}
+              <!--Edit-->
+              <li class="apigee-modal-link-edit nav-item pt-0">
+                <a class="nav-link" href="{{ base_path() ~ app['edit_url'] }}{% endif %}" aria-label="Edit app">
+                  <i class="fas fa-pencil"></i> {{ t('Edit') }}
+                </a>
+              </li>
+              <!--/.Edit-->
+              {% endif %} {# edit developer apps #}
+              {% if (user_access("delete developer apps")) %}
+              <!--Delete-->
+              <li class="apigee-modal-link-delete nav-item pt-0">
+                <a class="nav-link" href="{{ base_path() ~ app['delete_url'] }}{% endif %}" aria-label="Delete app">
+                  <i class="far fa-trash-alt"></i> {{ t('Delete') }}
+                </a>
+              </li>
+              <!--/.Delete-->
+              {% endif %} {# delete developer apps #}
+            </ul>
+            <ul class="nav nav-tabs md-tabs nav-fill basf-light-blue z-depth-0 pb-2 mx-0 rounded-0">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#keys{{ i }}" aria-selected="true"
+                   role="tab" aria-controls="keys{{ i }}" aria-label="App keys">
+                  {{ t('Keys') }}
+                </a>
+              </li>
+              {% if (not app['noproducts']) %}
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#profile{{ i }}{% endif %}" aria-selected="false"
+                   role="tab" aria-controls="profile{{ i }}" aria-label="App products">
+                  {{ t('Products') }}
+                </a>
+              </li>
+              {% if (app['smartdocs'] is defined) %}
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#docs{{ i }}{% endif %}" aria-selected="false"
+                   role="tab" aria-controls="docs{{ i }}" aria-label="App smartdocs">
+                  {{ t('Docs') }}
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#details{{ i }}" aria-selected="false"
+                   role="tab" aria-controls="details{{ i }}" aria-label="App details">
+                  {{ t('Details') }}
+                </a>
+              </li>
+              <!--Common attributes-->
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#attributes{{ i }}" aria-selected="false"
+                   role="tab" aria-controls="attributes{{ i }}" aria-label="App common attributes">
+                  {{ t('Common Attributes') }}
+                </a>
+              </li>
+              <!--/.Common attributes-->
+              {% if (show_analytics) %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ base_path() ~ app['detail_url'] }}{% endif %}" aria-label="App analytics">
+                  {{ t('Analytics') }}
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+            <div class="tab-content px-0" id="myTabContent">
+              <div id="keys{{ i }}" class="tab-pane fade in active show">
+                <div class="panel panel-default px-3">
+                  <h4 class="my-3">
+                    {{ t('@name’s Keys', {('@name' : app['app_name']) }
+                  </h4>
+                  {% if (app['new_status'] and not app['noproducts']) %} )
+                  <div class="panel-body">
+                    <p>{{ t('Below are keys you can use to access the API products associated with this application <em><span class="text-muted">(@name)</span></em>. The actual keys need to be approved <em>and</em> approved for an <em>API product</em> to be capable of accessing any of the URIs defined in the API product.', {('@name' : app['app_name']) }</p>
+                  </div>
+                  {% endif %} ){% endif %} {# new_status && !noproducts #}}}
+                  <p class="red-text mb-2">{{ t('Confidential data') }} }}</p>
+                  <div class="table-responsive">
+                    <table class="table w-auto word-break">
+                      <thead>
+                      <tr>
+                        <th scope="col" class="th-lg font-weight-bold">{{ t('#') }}</th>
+                        <th scope="col" class="th-lg font-weight-bold">{{ t('Value') }}</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">{{ t('Client ID') }}</th>
+                        <td>
+                            <span>
+                              {{ status == 'Revoked' or status == 'Pending' ? '<del>' : '' }}
+                                {{ app['credential']['consumerKey'] }}
+                              {{ status == 'Revoked' or status == 'Pending' ? '</del>' : '' }}
+                            </span>
+                          {% if (status == 'Pending') %}
+                          <hr>
+                          {{ t('Some products associated with this application are in <span class="label label-default">pending</span> status.') }}{% endif %}
+                          <hr>
+                          <ul style="margin:0;padding:0;">
+                            {% for product in app['credential']['apiProducts'] %}
+                            {% if (product['status'] == 'pending') %}
+                            <li style="margin:0;padding:0;list-style-type:none;">
+                              {{ product['displayName'] }}{% endif %}{% endfor %}
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                          </ul>
+                          {% endif %} {# status Pending #}
+                          {% if (status == 'Revoked') %}
+                          <hr>
+                          {{ t('Some products associated with this application are in <span class="label label-default">revoked</span> status.') }}{% endif %}
+                          <hr>
+                          <ul style="margin:0;padding:0;">
+                            {% for product in app['credential']['apiProducts'] %}
+                            {% if (product['status'] == 'revoked') %}
+                            <li
+                              style="margin:0;padding:0;list-style-type:none;">{{ product['displayName'] }}{% endif %}{% endfor %}</li>
+                            {% endif %}
+                            {% endfor %}
+                          </ul>
+                          {% endif %} {# status Revoked #}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">{{ t('Client Secret') }}</th>
+                        <td>
+                          {{ status == 'Revoked' or status == 'Pending' ? '<del>' : '' }}
+                            {{ app['credential']['consumerSecret'] }}
+                            {{ status == 'Revoked' or status == 'Pending' ? '</del>' : '' }}
+                        </td>
+                      </tr>
+                      {% if (status == 'Approved') %}
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">{{ t('Key Issued') }}{% endif %}</th>
+                        <td>{{ format_date(app['credential']['issued']) }}</td>
+                      </tr>
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">
+                          {% if (isExpired) %}
+                          <span class="label label-danger">{{ t('Expired') }}{% endif %}</span>
+                          {% else %}
+                          {{ t('Expires') }}{% endif %}
+                          {% endif %}
+                        </th>
+                        <td class="key-expire-date">
+                          {% if (hasExpiration) %}
+                          {% if (isExpired) %}
+                          <span
+                            class="key-expire-date-value is-expired">{{ format_date(expiry) }}{% endif %}{% endif %}</span>
+                          {% else %}
+                          <span class="key-expire-date-value">{{ format_date(expiry) }}{% endif %}</span>
+                          {% else %}
+                          <span class="key-expire-date-value">{{ t('Never') }}{% endif %}</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                      {% endif %}
+                      </tbody>
+                    </table>
+                  </div><!-- /table-responsive -->
+                </div><!-- /panel -->
+              </div><!-- /keys{{ i }} -->
+              {% if (not app['noproducts']) %}
+              <div id="profile{{ i }}{% endif %}" class="tab-pane fade">
+                {% for product in app['credential']['apiProducts'] %}
+                <div class="panel panel-default px-3">
+                  <div class="p-3">
+                    {{ t('API Product: ') }}{% endfor %}{{ check_plain(product['displayName']) }}
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody>
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">
+                          {{ t('Status') }}</th>
+                        <td>{{ _basf_status_label_callback(product['status']) }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br>
+                {% endfor %} {# apiProducts #}
+              </div>
+              {% if (app['smartdocs'] is defined) %}
+              <div id="docs{{ i }}{% endif %}" class="tab-pane fade">
+                <div class="panel-heading">{{ t('Quick Reference:') }}</div>
+                {% for product in app['credential']['apiProducts'] %}
+                {% for docs in app['smartdocs'] %}
+                {% for link in docs %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    {{ check_plain(product['displayName']) }}{% endfor %}{% endfor %}{% endfor %}{{ t('Documentation:') }}{{ link }}</div>
+                </div>
+                <br>
+                {% endfor %} {# link #}
+                {% endfor %} {# docs #}
+                {% endfor %} {# product #}
+              </div>
+              {% endif %} {# smartdocs #}
+              {% endif %} {# !noproducts #}
+              <div id="details{{ i }}" class="tab-pane fade">
+                <div class="panel panel-default px-3">
+                  <div class="mb-3">
+                    {{ t('@name’s details', {('@name' : app['app_name']) }
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody>
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">
+                          {{ t('Application Name') }} )
+                        </th>
+                        <td>{{ check_plain(app['app_name']) }} }}</td>
+                      </tr>
+                      {% if (not app['noproducts']) %}
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">
+                          {{ t('API Products') }}{% endif %}
+                        </th>
+                        <td>
+                          <ul class="m-0 p-0">
+                            {% for product in app['credential']['apiProducts'] %}
+                            <li class="p-0 m-0" style="list-style-type:none;">{{ check_plain(product['displayName']) }}{% endfor %}</li>
+                            {% endfor %}
+                          </ul>
+                        </td>
+                      </tr>
+                      {% endif %} {# !noproducts #}
+                      {% if (app['callback_url'] is not empty) %}
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">
+                          {{ t('Callback URL') }}{% endif %}</th>
+                        <td>{{ app['callback_url'] }}</td>
+                      </tr>
+                      {% endif %} {# App Description #}
+                      {% if (app['entity'].attributes['Notes'] is defined) %}
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">
+                          {{ t('Description') }}{% endif %}</th>
+                        <td>{{ app['entity'].attributes['Notes'] }}</td>
+                      </tr>
+                      {% endif %} {# App Description #}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--Commmon attributes table-->
+              <div id="attributes{{ i }}" class="tab-pane fade">
+                <div class="panel panel-default px-3">
+                  {% if (app['entity'].attributes is not empty) %}
+                  <div class="table-responsive">
+                    <table class="table table-sm common-attributes">
+                      <thead>
+                      <tr>
+                        <th class="key font-weight-bold" scope="row">{{ t('Name') }}{% endif %}</th>
+                        <th class="key font-weight-bold" scope="row">{{ t('Value') }}</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for name,attr in app['entity'].attributes %}
+                      <tr>
+                        <td>{{ check_plain(name) }}{% endfor %}</td>
+                        <td>{{ check_plain(attr) }}</td>
+                      </tr>
+                      {% endfor %} {# attributes #}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% endif %} {# attributes #}
+                </div>
+              </div>
+              <!--/.Common attributes table-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% set i = i + 1 %}
+    {% endfor %} {# applications #}
+  </div>
+</div>
+{% else %}
+{# no apps #}
+<div class="container">
+  <h3>
+    {{ t('Looks like you don’t have any @apps.', {('@apps' : plural_downcase) }
+  </h3>
+  <span>{{ t('Get started by adding one.') }}{% endif %} )</span>
+</div>
+{% endif %} }} {# application_count #}
+

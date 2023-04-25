@@ -1,0 +1,70 @@
+
+
+{% set sticky_class = 'sticky-nav' %}
+{% if (user_is_logged_in() and user_access('administer menu')) %}
+{% set sticky_class = 'sticky-nav-admin' %}
+{% endif %}
+{# Check if environment indicator menu is active #}
+{% if (module_exists('environment_indicator')) %}
+{% if (getenv('DEVPORTAL_ENV') != 'prod') %}
+{% if (user_is_logged_in() and user_access('administer menu')) %}
+{% set sticky_class = 'sticky-nav-admin-env' %}
+{% else %}
+{% set sticky_class = 'sticky-nav-env' %}
+{% endif %}
+{% endif %}
+{% endif %}
+
+<!--Navigation Menu-->
+<header id="masthead" role="banner">
+  <nav class="navbar navbar-expand-lg navbar-dark basf-rgba-black py-0 {{ sticky_class }}">
+    <div class="container">
+      <div class="basf-blue mr-md-5">
+        {% set site_front = url(variable_get('site_frontpage', 'node'), {('absolute' : constant('TRUE')) } )
+        <a class="navbar-brand mr-0 p-0" href="{{ render(site_front) }} %}" aria-label="{{ render(site_title) }}">
+          {% if (theme_get_setting('logo', 'basf' is not empty) %} {% set logo_url = theme_get_setting('logo', 'basf') %}{% endif %}
+          <img src="{{ render(logo_url) }}" width="160" height="80"
+               alt="{{ render(site_name_and_slogan) }}"/>
+          {% else %}
+          {{ render(site_title) }}{% endif %}
+          {% endif %}
+        </a>
+      </div>
+
+      <!--Hamburger menu-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+              aria-controls="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!--/.Hamburger menu-->
+
+      <div class="collapse navbar-collapse mb-0 px-3 px-md-0" id="navbar">
+        <ul class="navbar-nav mr-auto">
+          {% set main_menu = menu_tree(variable_get('menu_main_links_source', 'main-menu')) %}
+          {% if (main_menu['#cache'] is defined) %}
+          {% set main_menu['#cache'] = 'undefined' %}
+          {% endif %}
+          print_r(drupal_render(main_menu))
+
+        </ul>
+        <ul class="navbar-nav">
+          {% if (user_is_anonymous()) %}
+          {% set user_menu_anonymous = menu_tree(variable_get('menu_main_links_source', 'menu-user-menu-anonymous')) %}{% endif %}
+          {% if (user_menu_anonymous['#cache'] is defined) %}
+          {% set user_menu_anonymous['#cache'] = 'undefined' %}
+          {% endif %}
+          print_r(drupal_render(user_menu_anonymous))
+
+          {% else %}
+          {% set user_menu = menu_tree(variable_get('menu_main_links_source', 'user-menu')) %}{% endif %}
+          {% if (user_menu['#cache'] is defined) %}
+          {% set user_menu['#cache'] = 'undefined' %}
+          {% endif %}
+          print_r(drupal_render(user_menu))
+
+          {% endif %}
+        </ul>
+      </div>
+  </nav>
+</header>
+<!--/.Navigation Menu-->

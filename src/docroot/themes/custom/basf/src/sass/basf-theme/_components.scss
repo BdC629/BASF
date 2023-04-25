@@ -1,0 +1,306 @@
+/* Cookie Consent Banner */
+#sliding-popup.sliding-popup-bottom {
+  height: auto !important;
+}
+
+#sliding-popup .popup-content #popup-text {
+  margin-bottom: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+#sliding-popup .eu-cookie-compliance-default-button {
+  display: none;
+}
+
+.sliding-popup-bottom {
+  width: 100% !important;
+  background-color: $basfblack;
+  color: white;
+  position: fixed;
+  bottom: 0 !important;
+}
+
+#sliding-popup .popup-content #popup-text p {
+  font-size: 16px !important;
+}
+
+#sliding-popup .eu-cookie-compliance-more-button {
+  color: $basforange !important;
+  text-decoration: none !important;
+  font-size: 16px !important;
+}
+
+#sliding-popup .eu-cookie-compliance-secondary-button {
+  padding: 10px 20px;
+  font-size: 15px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  line-height: 26px;
+  border-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  width: 100%;
+  background: $basforange;
+  margin: 12px 0 5px 0
+}
+
+/* Buttons */
+.btn {
+  text-transform: none;
+  font-size: 1rem;
+}
+
+.btn-outline-basf-light-blue {
+  color: $white !important;
+  background-color: transparent !important;
+  border: 2px solid $basflightblue !important;
+}
+
+.btn-outline-basf-lgiht-green {
+  color: $basflightgreen !important;
+  background-color: transparent !important;
+  border: 2px solid $basflightgreen !important;
+}
+
+.cancel-link {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background-color: $basflightgrey !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+  background-color: $basfdarkgrey;
+}
+
+.pagination .page-item.active .page-link:hover {
+  background-color: $basfdarkgrey;
+}
+
+/* Table of contents */
+.view-display-id-apitocmethods {
+  padding-top: 1rem;
+}
+
+.toc-filter-back-to-top {
+  display: none;
+}
+
+.toc-filter-links.list-group li {
+  position: relative;
+  display: block;
+  padding-bottom: 1rem;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 0;
+  font-size: 1rem;
+}
+
+.toc-filter-content {
+  border: none !important;
+  background-color: $basflightgrey !important;
+  margin: 0 !important;
+  h3 {
+    margin-bottom: 1.5rem !important;
+  }
+  ul {
+    padding-left: 1em !important;
+  }
+}
+
+.toc-filter-links li {
+  margin-bottom: .5em;
+  a {
+    color: $basfblack;
+  }
+}
+@media (min-width: 992px) {
+  #smartdoc-sidebar {
+    min-height: 450px;
+  }
+}
+/* Timeline */
+.timeline-main .timeline-light {
+  font-size: 1rem !important;
+}
+
+.timeline-main .timeline-light .timeline-light-item .timeline-light-item-head {
+  bottom: 0px;
+  &:hover {
+    background: $basfdarkblue;
+    border: 2px solid $basfdarkblue
+  }
+}
+
+.timeline-main .timeline-light .timeline-light-item .timeline-light-item-content {
+  padding-top: 0 !important;
+  line-height: 1em !important;
+  height: 1em !important;
+}
+
+a.timeline-light-item.active {
+  font-weight: bold;
+  color: $basfdarkblue;
+}
+
+span.timeline-light-item.mb-2.nolink {
+  margin-bottom: -1rem !important;
+  color: $basflightblue;
+}
+
+/* Sticky content */
+@media (max-width: 768px) {
+  .sticky {
+    display: block;
+    position: relative !important;
+    top: 0 !important;
+    margin-bottom: 3rem;
+  }
+  .toc-filter {
+    display: block;
+    position: relative !important;
+    top: 0 !important;
+  }
+
+}
+.toc-filter {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8.5rem;
+}
+
+navbar ul.menu {
+  padding-inline-start: 0px;
+}
+
+#navbar ul.menu li {
+  display:inline;
+  padding: 0.5rem;
+}
+
+#navbar ul.menu li a {
+  color: #fff;
+}
+
+.views-exposed-form select, input {
+  height: 36px;
+}
+
+.views-exposed-form select {
+  min-width: 270px;
+}
+
+.view-display-id-methodtoc {
+  padding-left: 30px;
+  background-color: $basflightgrey;
+  margin-top: -6px;
+  padding-right: 1rem;
+}
+.view-display-id-methodtoc.no-title {
+  margin-top: -16px;
+}
+.view-display-id-methodtoc ul {
+  list-style: none;
+}
+
+.view-display-id-methodtoc div{
+  background-color: $basflightgrey !important;
+}
+.view-display-id-methodtoc .card-body {
+  padding: 0;
+  margin-top: -1rem;
+}
+.view-display-id-methodtoc ul {
+  padding-left: 0px;
+}
+
+.view-display-id-methodtoc .card-body > ul {
+  padding-left: 30px;
+}
+
+.view-display-id-methodtoc .card {
+  font-weight: 300;
+}
+.view-display-id-methodtoc .card-header {
+  padding-top: 0 !important;
+}
+
+/* Environment indicators */
+#environment-indicator {
+  width: 100%;
+  bottom: unset !important;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+  text-shadow: none !important;
+
+  .environment-indicator-name, .gradient-bar {
+    background-image: none !important;
+  }
+}
+
+.environment-indicator-sticky {
+  margin-top: 0;
+}
+
+// create app pagination style
+.page-item.disabled .page-link {
+  font-weight: 600;
+}
+
+.pagination.basf-dark-blue .page-item.active .page-link, .pagination.basf-dark-blue .page-item.active .page-link:hover {
+  background-color: $basfdarkgrey;
+}
+
+.bold_blue {
+  font-weight: 600;
+  color: $basfdarkblue !important;
+}
+
+.pagination .page-item.disabled .page-link{
+  color: $pagination-page-item-disabled-color !important;
+}
+
+.active > .bold_blue {
+  font-weight: 600;
+  color: #FFFFFF !important;
+}
+
+body.page-user main {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 3rem!important;
+  padding-top: 3rem!important;
+}
+
+@media (min-width: 576px) {
+  body.page-user main {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  body.page-user main {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  body.page-user main {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  body.page-user main {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1600px){
+  body.page-user main {
+    max-width: 1440px;
+  }
+}

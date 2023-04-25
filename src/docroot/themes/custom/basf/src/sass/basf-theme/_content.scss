@@ -1,0 +1,18 @@
+/* Images */
+.media-wysiwyg-align-center {
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+
+// HD+ large devices (large desktops, 1600px and up)
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
+@media (min-width: 768px) {
+  #main-content {
+    padding-bottom: 131px !important;
+  }
+}

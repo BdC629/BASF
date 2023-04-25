@@ -1,0 +1,122 @@
+version: '3'
+
+services:
+  drupal8-mariadb-admin:
+    image: mariadb:latest
+    container_name: drupal8-mariadb-admin
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: drupaladmin
+      MYSQL_USER: drupaladmin
+      MYSQL_PASSWORD: drupaladmin
+    restart: on-failure
+    ports:
+      - "3309:3306"
+    volumes:
+      - './data/mariadb-admin:/var/lib/mysql:delegated'
+    networks:
+      - internal
+
+  drupal8-mariadb-dev:
+    image: mariadb:latest
+    container_name: drupal8-mariadb-dev
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: drupaldev
+      MYSQL_USER: drupaldev
+      MYSQL_PASSWORD: drupaldev
+      restart: on-failure
+    ports:
+      - "3307:3306"
+    volumes:
+      - './data/mariadb-dev:/var/lib/mysql:delegated'
+    networks:
+      - internal
+        
+  drupal8-mariadb-ap:
+    image: mariadb:latest
+    container_name: drupal8-mariadb-ap
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: drupalap
+      MYSQL_USER: drupalap
+      MYSQL_PASSWORD: drupalap
+      restart: on-failure
+    ports:
+      - "3308:3306"
+    volumes:
+      - './data/mariadb-ap:/var/lib/mysql:delegated'
+    networks:
+      - internal
+
+  drupal8:
+    build:
+      context: ./
+      args:
+        - WITH_XDEBUG=true
+        - WITH_COMPOSER=false
+    container_name: drupal8
+    working_dir: "/var/www/html/docroot"
+    environment:
+      DEVPORTAL_ENV: localhost
+      DEVPORTAL_HOST_ADMIN: drupal8-mariadb-admin
+      DEVPORTAL_DB_ADMIN: drupaladmin
+      DEVPORTAL_DBUSER_ADMIN: drupaladmin
+      DEVPORTAL_DBPASSWORD_ADMIN: drupaladmin
+      DEVPORTAL_PORT_ADMIN: 3306
+      DEVPORTAL_HOST: drupal8-mariadb-dev
+      DEVPORTAL_DB: drupaldev
+      DEVPORTAL_DBUSER: drupaldev
+      DEVPORTAL_DBPASSWORD: drupaldev
+      DEVPORTAL_PORT: 3306
+      DEVPORTAL_HOST_AP: drupal8-mariadb-ap
+      DEVPORTAL_DB_AP: drupalap
+      DEVPORTAL_DBUSER_AP: drupalap
+      DEVPORTAL_DBPASSWORD_AP: drupalap
+      DEVPORTAL_PORT_AP: 3306
+      DB_HASHSALT: "4U-2Z9OIS3eh1E2DpZhxL6i2z4a7hZBxfa4FGUodrKPHKnGMIiWYVQ2X3_97rZPzOtEK3TFCoA"
+      PHP_EXTENSION_XDEBUG: 1
+      CERT_PASS: ""
+      LOG_WORKSPACE_ID:
+      LOG_SHARED_KEY:
+      PHP_IDE_CONFIG: "serverName=developer-basf"
+      # Generate a salt with: `php -r "echo bin2hex(random_bytes(25));"`
+      DRUPAL_HASH_SALT: db0de8a1556aa5348f87cfc950cd2c9641713d46e9412c8b05
+      EMAIL_NOTIFICATION_TO: "moazzam.boota@vollcom-digital.com"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - drupal8-mariadb-admin
+      - drupal8-mariadb-dev
+      - drupal8-mariadb-ap
+    restart: on-failure
+    links:
+      - "drupal8-mariadb-admin"
+      - "drupal8-mariadb-dev"
+      - "drupal8-mariadb-ap"
+    # Uncomment the volumes line and set to the local path of your Drupal
+    # installation, if you need to work with a local codebase.
+    volumes:
+    - './src:/var/www/html:rw,delegated'
+    - './home/LogFiles:/home/LogFiles:rw,delegated'
+    - './inc/php/docker-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
+    networks:
+      - internal
+      - external
+
+  composer8:
+    image: composer:1.10.17
+    container_name: composer8
+    working_dir: "/var/www/html/docroot"
+    restart: 'no'
+    volumes:
+      - './src:/var/www/html:rw,delegated'
+
+networks:
+  external:
+    driver: bridge
+  internal:
+    driver: bridge

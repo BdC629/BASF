@@ -1,0 +1,65 @@
+
+
+{% set term = taxonomy_term_load(tid) %}
+{% if ( term is not empty ) %}
+{% set term_link_title = t('View Category') %}
+{% set term_description = t(term.description) %}
+
+{# Field background image #}
+{% set background_image = field_get_items('taxonomy_term', term, 'field_background_image') %}
+{% set image_alt = '' %}
+{% set image_uri = '' %}
+
+{% if (background_image is not empty) %}
+{% set image_output = field_view_value('taxonomy_term', term, 'field_background_image', background_image[0]) %}
+{% if (image_output) %}
+{% set image_uri = file_create_url(image_output['#item']['uri']) %}
+{% set image_alt = image_output['#item']['alt'] %}
+{% endif %}
+{% endif %}
+
+{# Set saleslines brand color #}
+{% set domain = _SERVER['HTTP_HOST'] %}
+{% if ( strpos(domain, 'ap') != constant('false')) %}
+{% set saleslineclasstext = 'basf-ap-black-text' %}
+{% set saleslineclassbg = 'basf-light-green' %}
+{% set saleslineclasslink = 'basf-light-green-link' %}
+{% else %}
+{% set saleslineclasstext = 'basf-light-blue-text' %}
+{% set saleslineclassbg = 'basf-light-blue' %}
+{% set saleslineclasslink = 'basf-light-blue-link' %}
+{% endif %}
+
+{% endif %}
+
+
+<!--Smartdoc models category cards-->
+<div id="term-api-category-{{ tid }}" class="col-md-4 col-12 d-flex align-items-stretch mb-5 {{ classes }}">
+  <!--Card-->
+  <div class="card z-depth-0 basf-grey w-100 rounded-0">
+    {% if (image_uri is not empty) %}
+    <div class="view" style="height: 150px">
+      <img src="{{ image_uri }}{% endif %}" class="card-img-top rounded-0" alt="{{ image_alt }}"/>
+    </div>
+    {% endif %}
+    <div class="card-body pb-3">
+      {% if (term.name is not empty) %}
+      <h3 class="card-title mb-3 font-weight-bold {{ saleslineclasstext }}{% endif %}">{{ term.name }}</h3>
+      {% endif %}
+      {% if (term_description is not empty) %}
+      {{ render(term_description) }}{% endif %}
+      {% endif %}
+    </div>
+    {% if (term_url is not empty) %}
+    <div class="card-footer border-top-0 basf-grey">
+      <a href="{{ check_url(term_url) }}{% endif %}" class="btn {{ saleslineclassbg }} text-white ml-0 z-depth-0 mb-4 rounded-0 waves-effect waves-light" aria-label="{{ term_link_title }}">
+        {% if (term_link_title is not empty) %}
+        {{ term_link_title }}{% endif %}
+        {% endif %}
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  <!--/.Card-->
+</div>
+<!--/.Smartdoc models category cards-->

@@ -1,0 +1,102 @@
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div id="{{ post_id }}" class="{{ classes }} col-md-9 mb-5" {{ attributes }}>
+      <div class="card">
+        <div class="basf-light-blue p-3 clearfix text-white">
+          <div class="forum-posted-on">
+            {{ date }}
+
+            {# This whole section is for printing the "new" marker. With core comment
+ we just need to check a variable. With Node Comment, we need to do
+ extra work to keep the views caching used for Node Comment from
+ caching the new markers. #}
+
+            {% if (not top_post) %}
+              {% if (new is not empty) %}
+                <a id="new"><span class="new">({{ new }})</span></a>
+              {% endif %}
+
+              {% if (first_new is not empty) %}
+                {{ first_new }}{% endif %}{% endif %}{% endif %}
+            {% endif %}
+
+            {% if (new_output is not empty) %}
+              {{ new_output }}{% endif %}
+            {% endif %}
+            {% endif %}
+          </div>  {# End of posted on div #}
+
+          {% if (in_reply_to is not empty) %}
+          <span class="forum-in-reply-to">{{ in_reply_to }}{% endif %}</span>
+          {% endif %}
+
+          {# Add a note when a post is unpublished so it doesn't rely on theming. #}
+          {% if (not node.status) %}
+            <span class="unpublished-post-note">{{ t("Unpublished post") }}</span>
+          {% endif %}
+
+          <span class="forum-post-number">{{ permalink }}{% endif %}</span>
+        </div> {# End of post info div #}
+
+        <div class="">
+          <div class="card-header">
+            {% if (author_pane is not empty) %}
+              {{ author_pane }}{% endif %}
+            {% endif %}
+          </div>
+
+          <div class="card-body">
+            {% if (title is not empty) %}
+              <div class="basf-blue-text font-weight-bold">
+                {{ title }}
+              </div>
+              <hr>
+            {% endif %}
+
+            <div class="forum-post-content">
+              {# We hide the comments and links now so that we can render them later. #}
+              hide(content['taxonomy_forums'])
+              hide(content['comments'])
+              hide(content['links'])
+              {% if (not top_post) %}
+                hide(content['body'])
+                {{ render(content) }}{% endif %}{% endif %}
+
+            </div>
+
+            {% if (post_edited is not empty) %}
+              <div class="post-edited">
+                {{ post_edited }}
+              </div>
+            {% endif %}
+
+            {% if (signature is not empty) %}
+              <div class="author-signature">
+                {{ signature }}
+              </div>
+            {% endif %}
+          </div>
+        </div> {# End of post wrapper div #}
+
+        <div class="card-footer">
+          <div class="forum-jump-links">
+            <a href="#forum-topic-top" title="{{ t('Jump to top of page') }}{% endif %}{% endif %}" class="af-button-small"><span>{{ t("Top") }}</span></a>
+          </div>
+
+          <div class="forum-post-links">
+            {{ render(content['links']) }}
+          </div>
+        </div> {# End of footer div #}
+      </div>
+    </div> {# End of main wrapping div #}
+
+    {% if (top_post) %}
+      {{ topic_header }}
+    {% endif %}
+  </div>
+  {{ render(content['comments']) }}{% endif %}
+</div>

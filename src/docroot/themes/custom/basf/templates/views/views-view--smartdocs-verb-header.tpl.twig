@@ -1,0 +1,70 @@
+
+
+
+<section class="{{ classes }}">
+
+  {{ render(title_prefix) }}
+
+  {% if (title) %}
+  <div class="container">
+    {{ render(title) }}{% endif %}
+  </div>
+  {% elseif (header) %}
+  <div class="container">
+    {{ render(header) }}{% endif %}
+  </div>
+  {% endif %}
+  {{ render(title_suffix) }}
+
+  {% if (exposed) %}
+  <div class="view-filters container">
+    <div class="d-flex border-bottom border-darkgrey pb-3 mb-5">
+      {{ exposed }}{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if (attachment_before) %}
+  <div class="attachment attachment-before">
+    {{ attachment_before }}{% endif %}
+  </div>
+  {% endif %}
+
+  {% if (rows) %}
+  <div class="view-content">
+    {{ rows }}{% endif %}
+  </div>
+
+  {% elseif (empty) %}
+  <div class="view-empty">
+    {{ empty }}{% endif %}
+  </div>
+  {% endif %}
+
+  {% if (pager) %}
+  {{ pager }}{% endif %}
+  {% endif %}
+
+  {% if (attachment_after) %}
+  <div class="attachment attachment-after">
+    {{ attachment_after }}{% endif %}
+  </div>
+  {% endif %}
+
+  {% if (more) %}
+  {{ more }}{% endif %}
+  {% endif %}
+
+  {% if (footer) %}
+  <div class="view-footer">
+    {{ footer }}{% endif %}
+  </div>
+  {% endif %}
+
+  {% if (feed_icon) %}
+  <div class="feed-icon">
+    {{ feed_icon }}{% endif %}
+  </div>
+  {% endif %}
+</section>
+{# class view #}

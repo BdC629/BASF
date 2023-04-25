@@ -1,0 +1,66 @@
+
+
+
+
+{% if (top_post) %}
+<a id="forum-topic-top"></a>
+{% else %}
+<a id="forum-reply-preview"></a>
+{% endif %}
+
+<div id="{{ post_id }}{% endif %}{% endif %}" class="{{ classes }}" {{ attributes }}>
+  <div class="forum-post-info clearfix">
+    <div class="forum-posted-on">
+      {{ date }}
+
+      {% if (not top_post) %}
+      {% if (first_new is not empty) %}
+      {{ first_new }}{% endif %}{% endif %}
+      {% endif %}
+      {% if (new_output is not empty) %}
+      {{ new_output }}{% endif %}
+      {% endif %}
+      {% endif %}
+    </div>
+
+    {% if (top_post and comment_link is not empty and page_link is not empty) %}
+    <span class="forum-post-number">{{ comment_link ~ ' ' ~ page_link }}</span>
+    {% endif %}
+  </div>
+
+  <div class="forum-post-wrapper">
+    <div class="forum-post-panel-sub">
+      {{ author_pane }}
+    </div>
+
+    <div class="forum-post-panel-main clearfix">
+      {% if (title) %}
+      <div class="post-title">
+        {{ title }}
+      </div>
+      {% endif %}
+
+      <div class="forum-post-content">
+        {# We hide the comments and links now so that we can render them later. #}
+        hide(content['taxonomy_forums'])
+        hide(content['comments'])
+        {% if (not top_post) %}
+        hide(content['body'])
+        hide(content['links'])
+        {{ render(content) }}{% endif %}{% endif %}
+
+      </div>
+
+      {% if (signature is not empty) %}
+      <div class="author-signature">
+        {{ signature }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="forum-post-footer clear-block">
+    {# Purposely empty on preview just to keep the structure intact. #}
+  </div>
+
+</div>

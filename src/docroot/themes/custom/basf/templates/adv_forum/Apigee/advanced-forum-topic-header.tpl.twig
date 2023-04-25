@@ -1,0 +1,41 @@
+
+
+
+
+<div id="forum-topic-header" class="col-md-3 learfix">
+  <div class="card">
+    {% if (search is not empty) %}
+    {{ search }}{% endif %}
+    {% endif %}
+
+
+    <div class="card-header">
+      <div class="ml-auto">
+        {{ total_posts_count }} / {{ t('!new new', {('!new' : new_posts_count) }
+      </div>
+    </div>
+
+    <div class="card-body">
+      {% if (reply_link is not empty) %} )
+
+      {{ reply_link }}{% endif %} }}
+    </div>
+    {% endif %}
+
+    {% if (first_new_post_link is not empty) %}
+    <div class="topic-new-post-link">
+      {{ first_new_post_link }}{% endif %}
+    </div>
+    {% endif %}
+
+    {% if (last_post_link is not empty) %}
+    <div class="last-post-link">
+      {{ last_post_link }}{% endif %}
+    </div>
+    {% endif %}
+
+
+    <a id="forum-topic-top"></a>
+  </div>
+</div>
+</div>

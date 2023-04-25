@@ -1,0 +1,15 @@
+@mixin fontFace($basf,$src,$style: normal,$weight: normal) {
+  @font-face {
+    font-family: $basf;
+    src: local('#{$basf}'),
+    url('#{$src}.eot'), // IE9 compat
+    url('#{$src}.eot?#iefix') format('embedded-opentype'), // IE8 and below
+    url('#{$src}.woff2') format('woff2'), // standards
+    url('#{$src}.woff') format('woff'), // standards
+    url('#{$src}.ttf') format('truetype'), // Safari, Android, iOS
+    url('#{$src}.svg##{$basf}') format('svg'); // legacy iOS
+
+    font-style: $style;
+    font-weight: $weight;
+  }
+}

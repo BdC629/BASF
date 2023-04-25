@@ -1,0 +1,164 @@
+
+{{ render(page['header']) }}
+
+<!--Main Layout-->
+<main id="main-content">
+
+  {% if (page['page_hero']) %}
+  <!--/.Page Hero-->
+  {{ render(page['page_hero']) }}{% endif %}
+  <!--/.Page Hero-->
+  {% endif %}
+
+  {% if (action_links) %}
+  <!--Action links-->
+  <ul class="action-links">{{ render(action_links) }}{% endif %}</ul>
+  <!--/.Action links-->
+  {% endif %}
+
+  {% if (messages) %}
+  <!--Messages-->
+  <div class="container">
+    <div class="my-5">
+      {{ messages }}{% endif %}
+    </div>
+  </div>
+  <!--/.Messages-->
+  {% endif %}
+
+  {% if (page['sidebar_first']) %}
+  <div class="container">
+    <div class="row">
+      <!--Left sidebar-->
+      <div class="col-lg-3 mb-3">
+        {% if (arg(0) == 'node') %}
+        {{ '<div id="smartdoc-sidebar" class="card z-depth-0 mb-5 basf-grey"><div class="card-body" style="padding: 1.25rem">' }} {% set nid = arg(1) %}
+            {% set path = drupal_get_path_alias('node/' ~ nid) %}
+            preg_match('/(operations)/', path, parent_matches )
+            preg_match('#/([^/]*)#', path, matches)
+            {% if (parent_matches[0] is not empty) %}
+            {% set model_name = matches[1] %}
+            {% set term = taxonomy_get_term_by_name(model_name, 'smartdocs_models') %}
+            {% set view_name = substr('toc_' ~ model_name ~ '_methods', 0, 128) %}
+            {% if (term is not empty) %}
+            {{ render(page['sidebar_first']) }}
+            {% set view = views_get_view(view_name) %}
+            {% if (is_object(view)) %}
+            {% set view.set_display('apitocmethods') = 'undefined' %}
+            {% set view.pre_execute() = 'undefined' %}
+            {{ view.render('apitocmethods') }}
+            {% endif %}
+            {% else %}
+            {{ render(page['sidebar_first']) }}
+            {% endif %}
+            {% else %}
+            {{ render(page['sidebar_first']) }}
+            {% endif %}
+            {{ '</div></div>' }}
+        {% elseif (arg(0) == 'taxonomy') %}
+        {{ '<div id="smartdoc-sidebar" class="card z-depth-0 mb-5 basf-grey"><div class="card-body">' }}
+            {% set term_path = drupal_get_normal_path(current_path()) %}
+            {% set tid = basename(term_path) %}
+            {% if (tid is not empty) %}
+            {% set term = taxonomy_term_load(tid) %}
+            {% if (term is not empty) %}
+            {% set model_name = term.name %}
+            {% set term = taxonomy_get_term_by_name(model_name, 'smartdocs_models') %}
+            {% set view_name = substr('toc_' ~ model_name ~ '_methods', 0, 128) %}
+            {% if (term is not empty) %}
+            {{ render(page['sidebar_first']) }}
+            {% set view = views_get_view(view_name) %}
+            {% if (is_object(view)) %}
+            {% set view.set_display('apitocmethods') = 'undefined' %}
+            {% set view.pre_execute() = 'undefined' %}
+            {{ view.render('apitocmethods') }}
+            {% endif %}
+            {% else %}
+            {{ render(page['sidebar_first']) }}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {{ '</div></div>' }}
+        {% endif %}
+
+      </div>
+      <!--/. Left sidebar-->
+      <!--Main content-->
+      <div class="col-lg-9">
+        {% if (breadcrumb) %}
+        <!--Breadcrumbs-->
+        {{ breadcrumb }}{% endif %}{% endif %}
+        <!--/.Breadcrumbs-->
+        {% endif %}
+
+        {% if (title_suffix) %}
+        <!--Title suffix-->
+        {{ render(title_suffix) }}{% endif %}
+        <!--/.Title suffix-->
+        {% endif %}
+
+        {{ render(page['content']) }}
+      </div>
+      <!--/.Main content-->
+    </div>
+  </div>
+  {% elseif (page['sidebar_second']) %}
+  <div class="container">
+    <div class="row">
+      <!--Main content-->
+      <div class="col-md-8">
+        {% if (breadcrumb) %}
+        <!--Breadcrumbs-->
+        {{ breadcrumb }}{% endif %}{% endif %}
+        <!--/.Breadcrumbs-->
+        {% endif %}
+
+        {% if (title_suffix) %}
+        <!--Title suffix-->
+        {{ render(title_suffix) }}{% endif %}
+        <!--/.Title suffix-->
+        {% endif %}
+
+        {{ render(page['content']) }}
+      </div>
+      <!--/.Right content-->
+      <div class="col-md-4">
+        {{ render(page['sidebar_second']) }}
+      </div>
+      <!--/.Right sidebar-->
+    </div>
+  </div>
+  {% else %}
+
+  {% if (breadcrumb) %}
+  <!--Breadcrumbs-->
+  {{ breadcrumb }}{% endif %}{% endif %}
+  <!--/.Breadcrumbs-->
+  {% endif %}
+
+  {% if (title_suffix) %}
+  <!--Title suffix-->
+  {{ render(title_suffix) }}{% endif %}
+  <!--/.Title suffix-->
+  {% endif %}
+
+  {{ render(page['content']) }}
+
+  {% endif %}
+
+  {% if (page['page_footer']) %}
+  <!--Page Footer-->
+  {{ render(page['page_footer']) }}{% endif %}
+  <!--/.Page Footer-->
+  {% endif %}
+
+  {% if (feed_icons) %}
+  <!--Feed-->
+  {{ feed_icons }}
+  <!--/.Feed-->
+  {% endif %}
+
+  <!--/.Content section-->
+</main>
+<!--/.Main Layout-->
+{{ render(page['footer']) }}{% endif %}

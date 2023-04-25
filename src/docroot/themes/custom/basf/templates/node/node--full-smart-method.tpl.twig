@@ -1,0 +1,26 @@
+
+
+
+<section id="node-{{ node.nid }}" class="{{ classes }}"{{ attributes }}>
+
+  {{ user_picture }}
+
+  {{ render(title_prefix) }}
+  {% if (not page) %}
+  <h2{{ title_attributes }}{% endif %}><a href="{{ node_url }}" aria-label="{{ title }}">{{ title }}</a></h2>
+  {% endif %}
+  {{ render(title_suffix) }}
+
+  <div class="container"{{ content_attributes }}>
+    {# We hide the comments and links now so that we can render them later. #}
+    hide(content['comments'])
+    hide(content['links'])
+    {{ render(content) }}
+
+  </div>
+
+  {{ render(content['links']) }}
+
+  {{ render(content['comments']) }}
+
+</section>

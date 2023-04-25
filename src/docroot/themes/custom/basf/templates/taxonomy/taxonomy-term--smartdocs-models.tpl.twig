@@ -1,0 +1,90 @@
+
+
+{% set term = taxonomy_term_load(tid) %}
+
+{% if ( term is not empty ) %}
+{% set term_link_title = t('View product') %}
+{% set term_description = t(term.description) %}
+
+{# API Overview Page Field Reference #}
+{% set api_overview = field_get_items('taxonomy_term', term, 'field_api_overview') %}
+{% if ( api_overview is not empty ) %}
+{% set nid_reference = api_overview[0]['target_id'] %}
+{% set nid_overview = node_load(nid_reference) %}
+{% set nid_uri = entity_uri('node', nid_overview) %}
+{% set nid_url = url(nid_uri['path'], nid_uri['options']) %}
+{% endif %}
+
+{# Field display name #}
+{% set display_name = field_get_items('taxonomy_term', term, 'field_model_display_name') %}
+{% if ( display_name is not empty ) %}
+{% set name_output = field_view_value( 'taxonomy_term', term, 'field_model_display_name', display_name[0]) %}
+{% endif %}
+
+{# Field Smartdoc status #}
+{% set smartdoc_status = field_get_items('taxonomy_term', term, 'field_smartdoc_status') %}
+{% if ( smartdoc_status is not empty ) %}
+{% set status_output = field_view_value( 'taxonomy_term', term, 'field_smartdoc_status', smartdoc_status[0]) %}
+{% endif %}
+
+{# Set saleslines brand color #}
+{% set domain = _SERVER['HTTP_HOST'] %}
+{% if ( strpos(domain, 'ap') != constant('false')) %}
+{% set saleslineclasstext = 'basf-light-green-text' %}
+{% set saleslineclassbg = 'basf-light-green' %}
+{% set saleslineclasslink = 'basf-light-green-link' %}
+{% else %}
+{% set saleslineclasstext = 'basf-light-blue-text' %}
+{% set saleslineclassbg = 'basf-light-blue' %}
+{% set saleslineclasslink = 'basf-light-blue-link' %}
+{% endif %}
+
+{% endif %}
+
+<!--Smartdoc models grid cards-->
+<div id="term-smartdoc-models" class="col-md-4 col-12 d-flex align-items-stretch mb-5">
+  <!--Card-->
+  <div class="card z-depth-0 basf-grey w-100 rounded-0">
+    {% if (status_output is not empty or category_output is not empty) %}
+    <div class="d-flex mb-3">
+      {% if (status_output is not empty) %}
+      <!--Status-->
+      <div class="{{ saleslineclasstext }}{% endif %}{% endif %} py-2 px-4  w-100">
+        <span class="text-white">{{ check_markup(status_output['#title']) }}</span>
+      </div>
+      <!--/. Status-->
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!--Card body-->
+    <div class="card-body pb-3">
+      {% if (name_output is not empty) %}
+      <h3 class="card-title mb-3 font-weight-bold {{ saleslineclasstext }}{% endif %}">
+        {{ render(name_output) }}
+      </h3>
+      <hr class="mb-4">
+      {% endif %}
+      {% if (term_description is not empty) %}
+      {{ render(term_description) }}{% endif %}
+      {% endif %}
+    </div>
+    <!--/.Card body-->
+
+    {% if (nid_url is not empty) %}
+    <!--Card footer-->
+    <div class="card-footer border-top-0 basf-grey">
+      <a href="{{ check_url(nid_url) }}{% endif %}" class="{{ saleslineclasstext }}" aria-label="{{ term_link_title }}">
+        <i class="fas fa-arrow-circle-right"></i>&nbsp;
+        {% if (term_link_title is not empty) %}
+        {{ term_link_title }}{% endif %}
+        {% endif %}
+      </a>
+    </div>
+    <!--/.Card footer-->
+    {% endif %}
+  </div>
+  <!--/.Card-->
+
+</div>
+<!--/.Smartdoc models grid cards-->
