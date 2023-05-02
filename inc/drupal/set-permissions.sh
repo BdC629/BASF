@@ -16,7 +16,6 @@
 
 # Help menu
 print_help() {
-  
 cat <<-HELP
 This script is used to fix permissions of a Drupal installation
 you need to provide the following arguments:
